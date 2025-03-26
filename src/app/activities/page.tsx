@@ -19,7 +19,7 @@ const activities = [
     name: "Drumeții Montane",
     category: "outdoor",
     distance: "0.5 km",
-    duration: "2-6 hours",
+    duration: "1-4 ore",
     difficulty: "Moderate",
     description:
       "Explorați trasee pitorești cu priveliști uimitoare ale pajiștilor montane, pădurilor și vârfurilor muntoase. Rute disponibile pentru toate nivelurile de experiență",
@@ -35,7 +35,7 @@ const activities = [
     name: "Skiing si Snowboarding",
     category: "winter",
     distance: "3 km",
-    duration: "Full day",
+    duration: "Toata ziua",
     difficulty: "Varies",
     description:
       "Experimentați pârtii pentru toate nivelurile de abilitate, de la zone ușoare pentru începători până la trasee provocatoare pentru experți, cu fundaluri montane impresionante.",
@@ -47,7 +47,7 @@ const activities = [
     name: "Bicigleta, ATV si E-Bike",
     category: "outdoor",
     distance: "1 km",
-    duration: "2-4 hours",
+    duration: "1-4 ore",
     difficulty: "Moderate to Difficult",
     description:
       "Descoperiți trasee palpitante prin păduri și poteci montane, potrivite atât pentru cicliști ocazionali, cât și pentru bicicliști montani experimentați",
@@ -59,7 +59,7 @@ const activities = [
     name: "Thermal Spa",
     category: "wellness",
     distance: "5 km",
-    duration: "Flexible",
+    duration: "Flexibil",
     difficulty: "Easy",
     description:
       "Relaxați-vă și revigorați-vă în apele termale cu proprietăți terapeutice, completate de o gamă de tratamente de wellness",
@@ -75,7 +75,7 @@ const activities = [
     name: "Cascada Toplita",
     category: "adventure",
     distance: "7 km",
-    duration: "1-2 hours",
+    duration: "1-2 ore",
     difficulty: "Intermediate",
     description:
       "Descoperiți cascada Toplita, o cascada deosebita situata in apropierea pensiunii noastre.",
@@ -88,7 +88,7 @@ const activities = [
     name: "Manastirea Toplita",
     category: "cultural",
     distance: "4 km",
-    duration: "3 hours",
+    duration: "1-2 ore",
     difficulty: "Easy",
     description:
       "Descoperiți manastirea Toplita, o manastire deosebita situata in apropierea pensiunii noastre.",
@@ -102,7 +102,7 @@ const activities = [
     name: "Banffy Toplita",
     category: "outdoor",
     distance: "6 km",
-    duration: "Half day",
+    duration: "1-2 ore",
     difficulty: "Easy",
     description:
       "Descoperiți banffy Toplita, o zona deosebita situata in apropierea pensiunii noastre.",
