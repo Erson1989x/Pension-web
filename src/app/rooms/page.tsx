@@ -1,7 +1,7 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import camera from '../../../public/camera.jpg';
 
 const rooms = [
@@ -71,69 +71,82 @@ const rooms = [
 ];
 
 export default function RoomsPage() {
+  const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-center justify-center">
+      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
         <Image
           src={camera}
           alt="Rooms Hero"
           fill
-          className="object-cover"
+          className="object-cover transform scale-110 motion-safe:animate-ken-burns"
           priority
         />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 text-center text-white">
-          <h1 className="text-5xl font-bold mb-4">Camerele Noastre</h1>
-          <p className="text-xl max-w-2xl mx-auto">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent" />
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 text-center text-white max-w-4xl px-4"
+        >
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            Camerele Noastre
+          </h1>
+          <p className="text-xl md:text-2xl max-w-2xl mx-auto text-gray-200">
             Descoperiți confortul și eleganța camerelor noastre, fiecare oferind o experiență unică de cazare
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* Rooms Grid */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 gap-12">
+          <div className="grid grid-cols-1 gap-16">
             {rooms.map((room, index) => (
               <motion.div
                 key={room.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex flex-col lg:flex-row bg-white rounded-xl overflow-hidden shadow-lg"
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                className={`flex flex-col lg:flex-row bg-white rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-300 ${
+                  index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+                }`}
               >
                 {/* Room Images Carousel */}
-                <div className="relative lg:w-1/2 h-[300px] lg:h-auto">
+                <div className="relative lg:w-1/2 h-[400px] lg:h-auto group">
                   <Image
                     src={room.images[0]}
                     alt={room.name}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="text-lg font-semibold">{room.description}</p>
+                  </div>
                 </div>
 
                 {/* Room Details */}
-                <div className="lg:w-1/2 p-8">
-                  <div className="flex justify-between items-start mb-4">
-                    <h2 className="text-3xl font-bold text-gray-900">{room.name}</h2>
+                <div className="lg:w-1/2 p-8 lg:p-12 flex flex-col">
+                  <div className="flex justify-between items-start mb-6">
+                    <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">{room.name}</h2>
                     <div className="text-right">
-                      <p className="text-2xl font-bold text-blue-600">${room.price}</p>
+                      <p className="text-3xl font-bold text-blue-600">${room.price}</p>
                       <p className="text-sm text-gray-500">per noapte</p>
                     </div>
                   </div>
 
-                  <p className="text-gray-600 mb-6">{room.longDescription}</p>
-
                   <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="flex items-center text-gray-600">
+                    <div className="flex items-center text-gray-600 bg-gray-50 p-3 rounded-lg">
                       <svg className="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                       </svg>
                       {room.size}
                     </div>
-                    <div className="flex items-center text-gray-600">
+                    <div className="flex items-center text-gray-600 bg-gray-50 p-3 rounded-lg">
                       <svg className="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                       </svg>
@@ -141,21 +154,26 @@ export default function RoomsPage() {
                     </div>
                   </div>
 
-                  <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Facilități:</h3>
-                    <div className="grid grid-cols-2 gap-2">
-                      {room.features.slice(0, 6).map((feature, index) => (
-                        <div key={index} className="flex items-center text-gray-600">
-                          <svg className="w-4 h-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <p className="text-gray-600 mb-8 flex-grow">{room.longDescription}</p>
+
+                  <div className="mb-8">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Facilități:</h3>
+                    <div className="grid grid-cols-2 gap-3">
+                      {room.features.map((feature, index) => (
+                        <div key={index} className="flex items-center text-gray-600 bg-gray-50 p-2 rounded-lg">
+                          <svg className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                           </svg>
-                          {feature}
+                          <span className="text-sm">{feature}</span>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                  <button 
+                    className="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 transition-colors transform hover:scale-105 duration-200 shadow-lg hover:shadow-xl"
+                    onClick={() => setSelectedRoom(room.id)}
+                  >
                     Rezervă Acum
                   </button>
                 </div>
@@ -164,6 +182,68 @@ export default function RoomsPage() {
           </div>
         </div>
       </section>
+
+      {/* Booking Modal */}
+      <AnimatePresence>
+        {selectedRoom && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedRoom(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white rounded-2xl p-6 max-w-lg w-full"
+              onClick={e => e.stopPropagation()}
+            >
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Rezervă Camera
+              </h3>
+              <form className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Data Check-in
+                  </label>
+                  <input
+                    type="date"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Data Check-out
+                  </label>
+                  <input
+                    type="date"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Număr de persoane
+                  </label>
+                  <select className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option>1 persoană</option>
+                    <option>2 persoane</option>
+                    <option>3 persoane</option>
+                    <option>4 persoane</option>
+                  </select>
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                >
+                  Confirmă Rezervarea
+                </button>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

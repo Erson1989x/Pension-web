@@ -207,3 +207,74 @@ p {
 .tracking-wide {
   letter-spacing: var(--ls-wide);
 }
+
+/* New Utility Classes and Animations */
+
+@layer utilities {
+  .motion-safe\:animate-ken-burns {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: ken-burns 20s ease alternate infinite;
+    }
+  }
+}
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1.1) translate(0);
+  }
+  to {
+    transform: scale(1.2) translate(-2%, -2%);
+  }
+}
+
+/* Glass Morphism */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Loading Skeleton Animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
