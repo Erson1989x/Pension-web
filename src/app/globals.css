@@ -1,26 +1,209 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Core Colors */
+  --color-primary-50: #faf4f0;
+  --color-primary-100: #f5e6db;
+  --color-primary-200: #e8cbb8;
+  --color-primary-300: #dba88c;
+  --color-primary-400: #cd8662;
+  --color-primary-500: #bc6d45;
+  --color-primary-600: #a85937;
+  --color-primary-700: #8b472d;
+  --color-primary-800: #723b28;
+  --color-primary-900: #5f3324;
+  
+  /* Accent Colors - Deep Forest Green */
+  --color-accent-50: #f3f7f5;
+  --color-accent-100: #e1ebe6;
+  --color-accent-200: #c3d6cc;
+  --color-accent-300: #9cb8aa;
+  --color-accent-400: #729584;
+  --color-accent-500: #557a67;
+  --color-accent-600: #446354;
+  --color-accent-700: #385147;
+  --color-accent-800: #2f423b;
+  --color-accent-900: #283732;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Neutral Colors */
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+
+  /* Semantic Colors - Light Mode */
+  --background: var(--color-neutral-50);
+  --foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-100);
+  --muted-foreground: var(--color-neutral-600);
+  --primary: var(--color-primary-600);
+  --primary-foreground: var(--color-primary-50);
+  --accent: var(--color-accent-600);
+  --accent-foreground: var(--color-accent-50);
+  --border: var(--color-neutral-200);
+  --input: var(--color-neutral-200);
+  --ring: var(--color-primary-500);
+  
+  /* Surface Colors */
+  --surface-0: var(--color-neutral-50);
+  --surface-1: var(--color-neutral-100);
+  --surface-2: var(--color-neutral-200);
+  
+  /* Typography - inherited from previous update */
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-inter);
+  --fs-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --fs-sm: clamp(0.875rem, 0.8rem + 0.25vw, 1rem);
+  --fs-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --fs-lg: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  --fs-xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  --fs-2xl: clamp(1.875rem, 1.6rem + 1.5vw, 2.5rem);
+  --fs-3xl: clamp(2.25rem, 2rem + 2vw, 3.5rem);
+  --lh-tight: 1.2;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.75;
+  --ls-tight: -0.025em;
+  --ls-normal: 0;
+  --ls-wide: 0.025em;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Semantic Colors - Dark Mode */
+    --background: var(--color-neutral-900);
+    --foreground: var(--color-neutral-50);
+    --muted: var(--color-neutral-800);
+    --muted-foreground: var(--color-neutral-400);
+    --primary: var(--color-primary-400);
+    --primary-foreground: var(--color-neutral-900);
+    --accent: var(--color-accent-400);
+    --accent-foreground: var(--color-neutral-900);
+    --border: var(--color-neutral-800);
+    --input: var(--color-neutral-800);
+    --ring: var(--color-primary-400);
+    
+    /* Surface Colors - Dark Mode */
+    --surface-0: var(--color-neutral-900);
+    --surface-1: var(--color-neutral-800);
+    --surface-2: var(--color-neutral-700);
   }
 }
 
+/* Base Styles */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+}
+
+/* Typography Scale - inherited from previous update */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  color: var(--foreground);
+}
+
+h1 {
+  font-size: var(--fs-3xl);
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: var(--fs-2xl);
+  margin-bottom: 1.25rem;
+}
+
+h3 {
+  font-size: var(--fs-xl);
+  margin-bottom: 1rem;
+}
+
+h4 {
+  font-size: var(--fs-lg);
+  margin-bottom: 0.75rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  line-height: var(--lh-relaxed);
+}
+
+/* Color Utility Classes */
+.bg-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.bg-muted {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.border-color {
+  border-color: var(--border);
+}
+
+/* Surface Styles */
+.surface-0 {
+  background-color: var(--surface-0);
+}
+
+.surface-1 {
+  background-color: var(--surface-1);
+}
+
+.surface-2 {
+  background-color: var(--surface-2);
+}
+
+/* Existing Helper Classes */
+.text-sm {
+  font-size: var(--fs-sm);
+}
+
+.text-xs {
+  font-size: var(--fs-xs);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.tracking-tight {
+  letter-spacing: var(--ls-tight);
+}
+
+.tracking-wide {
+  letter-spacing: var(--ls-wide);
 }
