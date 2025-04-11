@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import hiking from "../../../public/hiking.jpg";
 import skiing from "../../../public/partia.jpg";
 import bicig from "../../../public/bicig.jpg";
@@ -26,7 +26,7 @@ const activities = [
     location: {
       address: "Strada Dealului, Toplița 535700",
       coordinates: "46.9254° N, 25.3475° E",
-      googleMapsUrl: "https://www.google.com/maps/place/Topl%C3%AD%C8%9Ba/@46.9254,25.3475,14z"
+      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2847.3073337245233!2d25.348311376850283!3d46.92840487123564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474968df10f859e5%3A0x90bcf634b24e71c6!2sStrada+Dealului!5e0!3m2!1sen!2sro!4v1712871553893!5m2!1sen!2sro"
     },
     color: "from-emerald-500/20 to-green-400/20",
     accent: "bg-gradient-to-r from-emerald-500 to-green-400"
@@ -44,7 +44,7 @@ const activities = [
     location: {
       address: "Pârtia de Schi Toplița, Toplița 535700",
       coordinates: "46.9354° N, 25.3575° E",
-      googleMapsUrl: "https://www.google.com/maps/place/P%C3%A2rtia+de+Schi+Topl%C3%AD%C8%9Ba/@46.9354,25.3575,17z"
+      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2846.872642038325!2d25.358311376850677!3d46.93340087123621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474968d979bdd6b7%3A0x77dbedd3144e05c4!2sP%C3%A2rtia+de+Schi+Topl%C3%AD%C8%9Ba!5e0!3m2!1sen!2sro!4v1712871649254!5m2!1sen!2sro"
     },
     color: "from-blue-500/20 to-cyan-400/20",
     accent: "bg-gradient-to-r from-blue-500 to-cyan-400"
@@ -62,7 +62,7 @@ const activities = [
     location: {
       address: "Strada Sportivilor, Toplița 535700",
       coordinates: "46.9254° N, 25.3575° E",
-      googleMapsUrl: "https://www.google.com/maps/place/Topl%C3%AD%C8%9Ba/@46.9254,25.3575,15z"
+      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2847.3073337245233!2d25.358311376850677!3d46.93340087123621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474968d979bdd6b7%3A0x77dbedd3144e05c4!2sStrada+Sportivilor!5e0!3m2!1sen!2sro!4v1712871649254!5m2!1sen!2sro"
     },
     color: "from-orange-500/20 to-amber-400/20",
     accent: "bg-gradient-to-r from-orange-500 to-amber-400"
@@ -80,7 +80,7 @@ const activities = [
     location: {
       address: "Bánffy Wellness Resort, Toplița 535700",
       coordinates: "46.9284° N, 25.3505° E",
-      googleMapsUrl: "https://www.google.com/maps/place/B%C3%A1nffy+Wellness+Resort/@46.9284,25.3505,17z"
+      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2847.3073337245233!2d25.348311376850283!3d46.92840487123564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474968df10f859e5%3A0x90bcf634b24e71c6!2sB%C3%A1nffy+Wellness+Resort!5e0!3m2!1sen!2sro!4v1712871553893!5m2!1sen!2sro"
     },
     color: "from-purple-500/20 to-fuchsia-400/20",
     accent: "bg-gradient-to-r from-purple-500 to-fuchsia-400"
@@ -98,7 +98,7 @@ const activities = [
     location: {
       address: "Cascada Toplița, Toplița 535700",
       coordinates: "46.9334° N, 25.3605° E",
-      googleMapsUrl: "https://www.google.com/maps/place/Cascada+Topl%C3%AD%C8%9Ba/@46.9334,25.3605,17z"
+      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2846.872642038325!2d25.358311376850677!3d46.93340087123621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474968d979bdd6b7%3A0x77dbedd3144e05c4!2sCascada+Topl%C3%AD%C8%9Ba!5e0!3m2!1sen!2sro!4v1712871649254!5m2!1sen!2sro"
     },
     color: "from-teal-500/20 to-cyan-400/20",
     accent: "bg-gradient-to-r from-teal-500 to-cyan-400"
@@ -116,7 +116,7 @@ const activities = [
     location: {
       address: "Mănăstirea Toplița, Toplița 535700",
       coordinates: "46.9274° N, 25.3545° E",
-      googleMapsUrl: "https://www.google.com/maps/place/M%C4%83n%C4%83stirea+Topl%C3%AD%C8%9Ba/@46.9274,25.3545,17z"
+      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2847.398123062728!2d25.352311376850177!3d46.92740087123556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474968df6b9e1a39%3A0x82e5a0678c28fb72!2sM%C4%83n%C4%83stirea+Topl%C3%AD%C8%9Ba!5e0!3m2!1sen!2sro!4v1712871699605!5m2!1sen!2sro"
     },
     color: "from-indigo-500/20 to-violet-400/20",
     accent: "bg-gradient-to-r from-indigo-500 to-violet-400"
@@ -134,7 +134,7 @@ const activities = [
     location: {
       address: "Castelul Bánffy, Toplița 535700",
       coordinates: "46.9294° N, 25.3525° E",
-      googleMapsUrl: "https://www.google.com/maps/place/Castelul+B%C3%A1nffy/@46.9294,25.3525,17z"
+      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2847.23644039073!2d25.350311376850353!3d46.92940087123574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474968de4f9d18e1%3A0xfbd131e0e7cf4c98!2sCastelul+B%C3%A1nffy!5e0!3m2!1sen!2sro!4v1712871742334!5m2!1sen!2sro"
     },
     color: "from-rose-500/20 to-pink-400/20",
     accent: "bg-gradient-to-r from-rose-500 to-pink-400"
@@ -173,7 +173,7 @@ interface IActivity {
 }
 
 // Decorative floating element component
-const FloatingElement = ({ delay = 0, size, left, top, color, blur = false }) => {
+const FloatingElement = ({ delay = 0, size, left, top, color, blur = false }: { delay?: number; size: number; left: number; top: number; color: string; blur?: boolean }) => {
   return (
     <motion.div
       className={`absolute rounded-full ${color} ${blur ? 'backdrop-blur-xl' : ''} mix-blend-multiply opacity-70`}
@@ -200,7 +200,7 @@ const FloatingElement = ({ delay = 0, size, left, top, color, blur = false }) =>
 };
 
 // Feature badge component
-const FeatureBadge = ({ feature, index, color }) => {
+const FeatureBadge = ({ feature, index, color }: { feature: string; index: number; color: string }) => {
   return (
     <motion.div 
       className="flex items-center text-gray-600 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-white/30"
@@ -212,6 +212,57 @@ const FeatureBadge = ({ feature, index, color }) => {
       <div className={`w-1.5 h-full self-stretch ${color} mr-2 rounded-full`}></div>
       <span className="text-sm">{feature}</span>
     </motion.div>
+  );
+};
+
+// Modern map component with styling based on activity colors
+const ActivityMap = ({ location, color, accent }: { location: Location; color: string; accent: string }) => {
+  const mapRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: mapRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Create parallax effect for the map
+  const mapY = useTransform(scrollYProgress, [0, 1], [0, 40]);
+  
+  return (
+    <div 
+      ref={mapRef}
+      className="relative h-[250px] rounded-xl overflow-hidden shadow-lg"
+    >
+      {/* Gradient border with accent color */}
+      <div className="absolute inset-0 border-2 border-white/20 z-20 rounded-xl pointer-events-none overflow-hidden">
+        <div className={`absolute top-0 left-0 right-0 h-1.5 ${accent}`}></div>
+      </div>
+      
+      {/* Map with parallax effect */}
+      <motion.div 
+        className="absolute inset-0"
+        style={{ y: mapY }}
+      >
+        <iframe
+          src={location.googleMapsUrl}
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </motion.div>
+      
+      {/* Location indicator */}
+      <div className="absolute top-4 right-4 z-10">
+        <div className={`${accent} text-white px-3 py-1.5 rounded-full text-sm shadow-lg flex items-center space-x-1`}>
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>Locație</span>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -405,8 +456,8 @@ const ActivitiesPage = () => {
                     transition={{ duration: 0.3, delay: 0.1 }}
                   >
                     <svg className="w-5 h-5 mr-2 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                     <span className="text-gray-700">{selectedActivity.distance}</span>
                   </motion.div>
@@ -418,7 +469,7 @@ const ActivitiesPage = () => {
                     transition={{ duration: 0.3, delay: 0.2 }}
                   >
                     <svg className="w-5 h-5 mr-2 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     <span className="text-gray-700">{selectedActivity.duration}</span>
                   </motion.div>
@@ -430,7 +481,7 @@ const ActivitiesPage = () => {
                     transition={{ duration: 0.3, delay: 0.3 }}
                   >
                     <svg className="w-5 h-5 mr-2 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2m0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                     <span className="text-gray-700">{selectedActivity.difficulty}</span>
                   </motion.div>
@@ -480,6 +531,7 @@ const ActivitiesPage = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
+                  className="space-y-6"
                 >
                   <h3 className="text-2xl font-semibold mb-4 text-gray-900 relative inline-block">
                     Locație
@@ -490,25 +542,55 @@ const ActivitiesPage = () => {
                       transition={{ duration: 0.5, delay: 0.8 }}
                     />
                   </h3>
+                  
                   <div className="bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-white/20">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                      <div className="space-y-2">
-                        <p className="text-gray-700"><strong>Adresă:</strong> {selectedActivity.location.address}</p>
-                        <p className="text-gray-700"><strong>Coordonate:</strong> {selectedActivity.location.coordinates}</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-4">
+                        <div className="space-y-2">
+                          <p className="text-gray-700">
+                            <span className="inline-flex items-center font-medium text-gray-900 mb-1">
+                              <svg className="w-5 h-5 mr-2 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                              </svg>
+                              Adresă
+                            </span><br />
+                            <span className="ml-7">{selectedActivity.location.address}</span>
+                          </p>
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <p className="text-gray-700">
+                            <span className="inline-flex items-center font-medium text-gray-900 mb-1">
+                              <svg className="w-5 h-5 mr-2 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                              </svg>
+                              Coordonate
+                            </span><br />
+                            <span className="ml-7">{selectedActivity.location.coordinates}</span>
+                          </p>
+                        </div>
+                        
+                        <motion.a
+                          href={selectedActivity.location.googleMapsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`${selectedActivity.accent} text-white px-6 py-3 rounded-xl inline-flex items-center shadow-lg hover:shadow-xl transition-all duration-300 mt-4`}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                          </svg>
+                          Vezi pe Google Maps
+                        </motion.a>
                       </div>
-                      <motion.a
-                        href={selectedActivity.location.googleMapsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`${selectedActivity.accent} text-white px-6 py-3 rounded-xl inline-flex items-center shadow-lg hover:shadow-xl transition-all duration-300`}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                        </svg>
-                        Vezi pe Google Maps
-                      </motion.a>
+                      
+                      <ActivityMap 
+                        location={selectedActivity.location} 
+                        color={selectedActivity.color} 
+                        accent={selectedActivity.accent} 
+                      />
                     </div>
                   </div>
                 </motion.div>
@@ -562,8 +644,17 @@ const ActivitiesPage = () => {
                       
                       <p className="text-gray-600 mb-6 line-clamp-3">{activity.description}</p>
                       
+                      {/* Add location info instead of map */}
+                      <div className="mt-auto mb-4 flex items-center text-gray-600">
+                        <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span className="text-sm truncate">{activity.location.address}</span>
+                      </div>
+                      
                       <motion.button
-                        className={`mt-auto ${activity.accent} text-white py-3 rounded-xl font-medium shadow-md hover:shadow-lg transition-all duration-300`}
+                        className={`${activity.accent} text-white py-3 rounded-xl font-medium shadow-md hover:shadow-lg transition-all duration-300`}
                         onClick={() => handleActivityClick(activity)}
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
