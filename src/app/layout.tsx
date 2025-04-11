@@ -45,6 +45,7 @@ export default function RootLayout({
                   </motion.a>
                   <div className="hidden md:flex items-center space-x-8">
                     <NavLink href="/">Acasă</NavLink>
+                    <NavLink href="/about">Despre Noi</NavLink>
                     <NavLink href="/rooms">Camere</NavLink>
                     <NavLink href="/activities">Activități</NavLink>
                     <NavLink href="/gallery">Galerie</NavLink>
@@ -78,27 +79,30 @@ export default function RootLayout({
               <AnimatePresence>
                 {isMenuOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.2 }}
-                    className="md:hidden glass-card m-4 mt-2 rounded-3xl p-6 shadow-xl"
+                    initial={{ opacity: 0, x: 100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 100 }}
+                    className="fixed inset-0 bg-black/50 backdrop-blur-sm md:hidden"
+                    onClick={() => setIsMenuOpen(false)}
                   >
-                    <div className="flex flex-col space-y-4">
-                      <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>Acasă</MobileNavLink>
-                      <MobileNavLink href="/rooms" onClick={() => setIsMenuOpen(false)}>Camere</MobileNavLink>
-                      <MobileNavLink href="/activities" onClick={() => setIsMenuOpen(false)}>Activități</MobileNavLink>
-                      <MobileNavLink href="/gallery" onClick={() => setIsMenuOpen(false)}>Galerie</MobileNavLink>
-                      <MobileNavLink href="/contact" onClick={() => setIsMenuOpen(false)}>Contact</MobileNavLink>
-                      <motion.a
-                        href="/book"
-                        className="button-primary text-center"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        Rezervă Acum
-                      </motion.a>
+                    <div className="absolute right-0 top-0 h-full w-64 bg-white p-6" onClick={e => e.stopPropagation()}>
+                      <div className="flex flex-col space-y-4">
+                        <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>Acasă</MobileNavLink>
+                        <MobileNavLink href="/about" onClick={() => setIsMenuOpen(false)}>Despre Noi</MobileNavLink>
+                        <MobileNavLink href="/rooms" onClick={() => setIsMenuOpen(false)}>Camere</MobileNavLink>
+                        <MobileNavLink href="/activities" onClick={() => setIsMenuOpen(false)}>Activități</MobileNavLink>
+                        <MobileNavLink href="/gallery" onClick={() => setIsMenuOpen(false)}>Galerie</MobileNavLink>
+                        <MobileNavLink href="/contact" onClick={() => setIsMenuOpen(false)}>Contact</MobileNavLink>
+                        <motion.a
+                          href="/book"
+                          className="button-primary text-center"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Rezervă Acum
+                        </motion.a>
+                      </div>
                     </div>
                   </motion.div>
                 )}

@@ -2,10 +2,65 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import camera from '../../../public/camera.jpg';
+import { IoClose } from 'react-icons/io5';
 
-// In a real application, you would have multiple images
-const images = Array(12).fill(camera);
+// Gallery images with actual URLs
+const galleryImages = [
+  {
+    id: 1,
+    src: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&auto=format&fit=crop&q=60',
+    alt: 'Cameră Dublă Deluxe',
+    category: 'rooms'
+  },
+  {
+    id: 2,
+    src: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&auto=format&fit=crop&q=60',
+    alt: 'Cameră Twin Premium',
+    category: 'rooms'
+  },
+  {
+    id: 3,
+    src: 'https://images.unsplash.com/photo-1591088398332-8a7791972843?w=800&auto=format&fit=crop&q=60',
+    alt: 'Apartament Executive',
+    category: 'rooms'
+  },
+  {
+    id: 4,
+    src: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=60',
+    alt: 'Restaurant Principal',
+    category: 'restaurant'
+  },
+  {
+    id: 5,
+    src: 'https://images.unsplash.com/photo-1578474846511-04ba529f0b88?w=800&auto=format&fit=crop&q=60',
+    alt: 'Terasă Restaurant',
+    category: 'restaurant'
+  },
+  {
+    id: 6,
+    src: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&auto=format&fit=crop&q=60',
+    alt: 'Piscină Infinity',
+    category: 'facilities'
+  },
+  {
+    id: 7,
+    src: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=60',
+    alt: 'Sală de Fitness',
+    category: 'facilities'
+  },
+  {
+    id: 8,
+    src: 'https://images.unsplash.com/photo-1610641818989-c2051b5e2cfd?w=800&auto=format&fit=crop&q=60',
+    alt: 'Vedere Panoramică',
+    category: 'exterior'
+  },
+  {
+    id: 9,
+    src: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&auto=format&fit=crop&q=60',
+    alt: 'Grădină și Terasă',
+    category: 'exterior'
+  }
+];
 
 // Image categories
 const categories = [
@@ -24,19 +79,22 @@ const GalleryPage = () => {
   const handleCategoryChange = (categoryId: string) => {
     setIsLoading(true);
     setActiveCategory(categoryId);
-    // Simulate loading delay
     setTimeout(() => setIsLoading(false), 500);
   };
 
+  const filteredImages = galleryImages.filter(
+    img => activeCategory === 'all' || img.category === activeCategory
+  );
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <main className="min-h-screen pt-24 bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
       <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
         <Image
-          src={camera}
+          src="https://images.unsplash.com/photo-1455587734955-081b22074882?w=800&auto=format&fit=crop&q=60"
           alt="Gallery Hero"
           fill
-          className="object-cover transform scale-110 motion-safe:animate-ken-burns"
+          className="object-cover"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent" />
@@ -65,7 +123,7 @@ const GalleryPage = () => {
                 onClick={() => handleCategoryChange(category.id)}
                 className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 ${
                   activeCategory === category.id
-                    ? 'bg-blue-600 text-white shadow-lg scale-105'
+                    ? 'bg-primary text-white shadow-lg scale-105'
                     : 'bg-white text-gray-600 hover:bg-gray-50 hover:scale-105'
                 }`}
               >
@@ -101,25 +159,27 @@ const GalleryPage = () => {
                 exit={{ opacity: 0 }}
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
               >
-                {images.map((image, index) => (
+                {filteredImages.map((image) => (
                   <motion.div
-                    key={index}
+                    key={image.id}
+                    layout
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="relative aspect-square cursor-pointer group"
-                    onClick={() => setSelectedImage(index)}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    whileHover={{ scale: 1.02 }}
+                    className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group"
+                    onClick={() => setSelectedImage(image.id)}
                   >
                     <Image
-                      src={image}
-                      alt={`Gallery image ${index + 1}`}
+                      src={image.src}
+                      alt={image.alt}
                       fill
-                      className="object-cover rounded-2xl transform transition-transform duration-300 group-hover:scale-105"
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-2xl" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                      <h3 className="text-lg font-semibold">Imagine {index + 1}</h3>
-                      <p className="text-sm text-gray-200">Descriere frumoasă a imaginii</p>
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <p className="text-white text-lg font-medium">{image.alt}</p>
+                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -131,78 +191,38 @@ const GalleryPage = () => {
 
       {/* Lightbox */}
       <AnimatePresence>
-        {selectedImage !== null && (
+        {selectedImage && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
             onClick={() => setSelectedImage(null)}
           >
+            <button
+              className="absolute top-4 right-4 text-white text-4xl hover:opacity-75 transition-opacity"
+              onClick={() => setSelectedImage(null)}
+            >
+              <IoClose />
+            </button>
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-6xl aspect-video bg-black/50 rounded-2xl overflow-hidden"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              className="relative w-full max-w-5xl aspect-[4/3]"
               onClick={(e) => e.stopPropagation()}
             >
               <Image
-                src={images[selectedImage]}
-                alt={`Gallery image ${selectedImage + 1}`}
+                src={galleryImages.find(img => img.id === selectedImage)?.src || ''}
+                alt={galleryImages.find(img => img.id === selectedImage)?.alt || ''}
                 fill
                 className="object-contain"
               />
-              
-              {/* Navigation Buttons */}
-              <button
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 p-3 rounded-full backdrop-blur-sm transition-all duration-200 group"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedImage(selectedImage === 0 ? images.length - 1 : selectedImage - 1);
-                }}
-              >
-                <svg className="w-6 h-6 text-white transform group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              
-              <button
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 p-3 rounded-full backdrop-blur-sm transition-all duration-200 group"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedImage(selectedImage === images.length - 1 ? 0 : selectedImage + 1);
-                }}
-              >
-                <svg className="w-6 h-6 text-white transform group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-
-              {/* Close Button */}
-              <button
-                className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 p-3 rounded-full backdrop-blur-sm transition-all duration-200 group"
-                onClick={() => setSelectedImage(null)}
-              >
-                <svg className="w-6 h-6 text-white transform group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-
-              {/* Image Counter */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 px-4 py-2 rounded-full text-white backdrop-blur-sm">
-                {selectedImage + 1} / {images.length}
-              </div>
-
-              {/* Image Info */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                <h3 className="text-xl font-semibold text-white mb-2">Imagine {selectedImage + 1}</h3>
-                <p className="text-gray-300">Descriere detaliată a imaginii care oferă mai multe informații despre locație și context.</p>
-              </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </main>
   );
 };
 
