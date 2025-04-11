@@ -1,6 +1,7 @@
 "use client";
 import { Inter, Playfair_Display } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -14,13 +15,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
         <title>Pensiunea Noastră - Cazare de Lux în Toplița</title>
         <meta name="description" content="Descoperiți confortul și luxul într-o locație pitorească din Toplița. Camere elegante, facilități moderne și experiențe memorabile." />
+        <link rel="icon" href="/favicon.ico" />
       </head>
-      <body>
+      <body className="overflow-x-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             initial={{ opacity: 0 }}
@@ -45,21 +49,60 @@ export default function RootLayout({
                     <NavLink href="/activities">Activități</NavLink>
                     <NavLink href="/gallery">Galerie</NavLink>
                     <NavLink href="/contact">Contact</NavLink>
-                    <motion.button
+                    <motion.a
+                      href="/book"
                       className="button-primary"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
                       Rezervă Acum
-                    </motion.button>
+                    </motion.a>
                   </div>
-                  <button className="md:hidden text-gray-600 hover:text-gray-900">
+                  <button 
+                    className="md:hidden text-gray-600 hover:text-gray-900"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                      <path 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        strokeWidth={2} 
+                        d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} 
+                      />
                     </svg>
                   </button>
                 </div>
               </nav>
+
+              {/* Mobile Menu */}
+              <AnimatePresence>
+                {isMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.2 }}
+                    className="md:hidden glass-card m-4 mt-2 rounded-3xl p-6 shadow-xl"
+                  >
+                    <div className="flex flex-col space-y-4">
+                      <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>Acasă</MobileNavLink>
+                      <MobileNavLink href="/rooms" onClick={() => setIsMenuOpen(false)}>Camere</MobileNavLink>
+                      <MobileNavLink href="/activities" onClick={() => setIsMenuOpen(false)}>Activități</MobileNavLink>
+                      <MobileNavLink href="/gallery" onClick={() => setIsMenuOpen(false)}>Galerie</MobileNavLink>
+                      <MobileNavLink href="/contact" onClick={() => setIsMenuOpen(false)}>Contact</MobileNavLink>
+                      <motion.a
+                        href="/book"
+                        className="button-primary text-center"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Rezervă Acum
+                      </motion.a>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </header>
 
             <main className="min-h-screen pt-20">{children}</main>
@@ -95,7 +138,7 @@ export default function RootLayout({
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
-                        <span>Strada Principală, Toplița</span>
+                        <span>Strada Dealului, Nr. 5, Toplița</span>
                       </li>
                       <li className="flex items-center space-x-3">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,24 +150,29 @@ export default function RootLayout({
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
-                        <span>contact@pensiunea.ro</span>
+                        <span>contact@pensiune-toplita.ro</span>
                       </li>
                     </ul>
                   </div>
                   <div>
                     <h4 className="text-xl font-heading font-bold mb-6">Newsletter</h4>
-                    <p className="text-gray-300 mb-4">
-                      Abonați-vă pentru a primi cele mai noi oferte și actualizări.
-                    </p>
-                    <form className="flex">
+                    <p className="text-gray-300 mb-4">Abonați-vă pentru oferte speciale</p>
+                    <form className="flex gap-2">
                       <input
                         type="email"
-                        placeholder="Email-ul tău"
-                        className="flex-1 px-4 py-2 rounded-l-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-blue-500"
+                        placeholder="Email"
+                        className="flex-1 px-4 py-2 rounded-full bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-primary"
                       />
-                      <button className="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition-colors">
-                        Abonare
-                      </button>
+                      <motion.button
+                        type="submit"
+                        className="button-primary"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </motion.button>
                     </form>
                   </div>
                 </div>
@@ -140,46 +188,71 @@ export default function RootLayout({
   );
 }
 
-const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
-  <motion.a
-    href={href}
-    className="nav-link text-gray-600 hover:text-gray-900 font-medium"
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
-  >
-    {children}
-  </motion.a>
-);
-
-const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
-  <li>
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
     <motion.a
       href={href}
-      className="text-gray-300 hover:text-white transition-colors"
-      whileHover={{ x: 5 }}
+      className="nav-link text-gray-600 hover:text-gray-900"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
     >
       {children}
     </motion.a>
-  </li>
-);
+  );
+}
 
-const SocialIcon = ({ href, icon }: { href: string; icon: string }) => (
-  <motion.a
-    href={href}
-    className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 transition-colors"
-    whileHover={{ scale: 1.1 }}
-    whileTap={{ scale: 0.9 }}
-  >
-    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-      {icon === "facebook" && (
-        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
-      )}
-      {icon === "instagram" && (
-        <path d="M16 4H8a4 4 0 00-4 4v8a4 4 0 004 4h8a4 4 0 004-4V8a4 4 0 00-4-4zm-8 12a4 4 0 110-8 4 4 0 010 8zm9-12h-2v3h2V4z" />
-      )}
-      {icon === "twitter" && (
-        <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
-      )}
-    </svg>
-  </motion.a>
-);
+function MobileNavLink({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void }) {
+  return (
+    <motion.a
+      href={href}
+      className="text-gray-600 hover:text-gray-900 text-lg font-medium block py-2 text-center"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={onClick}
+    >
+      {children}
+    </motion.a>
+  );
+}
+
+function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <li>
+      <motion.a
+        href={href}
+        className="text-gray-300 hover:text-white transition-colors"
+        whileHover={{ x: 5 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        {children}
+      </motion.a>
+    </li>
+  );
+}
+
+function SocialIcon({ href, icon }: { href: string; icon: string }) {
+  const icons = {
+    facebook: (
+      <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+    ),
+    twitter: (
+      <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
+    ),
+    instagram: (
+      <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01M7.5 21h9a3 3 0 003-3V6a3 3 0 00-3-3h-9a3 3 0 00-3 3v12a3 3 0 003 3z" />
+    ),
+  };
+
+  return (
+    <motion.a
+      href={href}
+      className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-primary hover:text-white transition-colors"
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+    >
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        {icons[icon as keyof typeof icons]}
+      </svg>
+    </motion.a>
+  );
+}

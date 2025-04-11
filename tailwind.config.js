@@ -1,3 +1,6 @@
+const forms = require('@tailwindcss/forms');
+const aspectRatio = require('@tailwindcss/aspect-ratio');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -9,15 +12,15 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#1e40af",
-          light: "#3b82f6",
-          dark: "#1e3a8a",
+          DEFAULT: "var(--primary)",
+          light: "var(--primary-light)",
+          dark: "var(--primary-dark)",
         },
         secondary: {
-          DEFAULT: "#f59e0b",
-          light: "#fbbf24",
+          DEFAULT: "var(--secondary)",
+          light: "var(--secondary-light)",
         },
-        accent: "#10b981",
+        accent: "var(--accent)",
       },
       fontFamily: {
         sans: ["var(--font-sans)"],
@@ -27,10 +30,11 @@ module.exports = {
         "ken-burns": "ken-burns 20s ease-out forwards",
         float: "float 3s ease-in-out infinite",
         "fade-up": "fade-up 0.6s ease-out forwards",
+        "gradient-x": "gradient-x 8s linear infinite",
       },
       keyframes: {
         float: {
-          "0%, 100%": { transform: "translateY(0px)" },
+          "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
         "ken-burns": {
@@ -47,8 +51,22 @@ module.exports = {
             transform: "translateY(0)",
           },
         },
+        "gradient-x": {
+          "0%, 100%": {
+            "background-position": "0% 50%",
+          },
+          "50%": {
+            "background-position": "100% 50%",
+          },
+        },
+      },
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+      },
+      backdropBlur: {
+        xs: "2px",
       },
     },
   },
-  plugins: [],
+  plugins: [forms, aspectRatio],
 };
