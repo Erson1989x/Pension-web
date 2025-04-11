@@ -21,6 +21,16 @@ module.exports = {
           light: "var(--secondary-light)",
         },
         accent: "var(--accent)",
+        surface: {
+          1: "var(--surface-1)",
+          2: "var(--surface-2)",
+          3: "var(--surface-3)",
+        },
+        text: {
+          1: "var(--text-1)",
+          2: "var(--text-2)",
+          3: "var(--text-3)",
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)"],
@@ -31,6 +41,8 @@ module.exports = {
         float: "float 3s ease-in-out infinite",
         "fade-up": "fade-up 0.6s ease-out forwards",
         "gradient-x": "gradient-x 8s linear infinite",
+        "reveal": "reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "pulse-subtle": "pulse-subtle 2s ease-in-out infinite",
       },
       keyframes: {
         float: {
@@ -58,6 +70,20 @@ module.exports = {
           "50%": {
             "background-position": "100% 50%",
           },
+        },
+        "reveal": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(30px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+        "pulse-subtle": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.85" },
         },
       },
       backgroundImage: {
