@@ -235,7 +235,6 @@ const Features = () => {
                         transition={{ duration: 0.3 }}
                       />
                       <div className="flex justify-between items-center pt-3">
-                        <span className={`text-sm font-medium ${feature.iconColor}`}>Află mai multe</span>
                         <motion.div
                           className={`ml-2 ${feature.iconColor}`}
                           variants={{
@@ -289,27 +288,12 @@ const Features = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <span>Explorează Toate Facilitățile</span>
             <motion.span 
               className="ml-2 group-hover:ml-3 transition-all"
               variants={{
                 hover: { x: 5 }
               }}
             >
-              <svg 
-                className="w-5 h-5" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24" 
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth="2" 
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                ></path>
-              </svg>
             </motion.span>
           </motion.a>
         </motion.div>

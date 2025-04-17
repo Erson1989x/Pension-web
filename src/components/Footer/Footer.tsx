@@ -25,7 +25,7 @@ const Footer = () => {
               />
             </div>
             <p className="text-gray-300 mb-6">
-              Experimentați escapada montană supremă cu priveliști uimitoare și servicii excepționale în pensiunea noastră confortabilă
+              Experimentați escapada montană supremă cu priveliști uimitoare și servicii excepționale în pensiunea Vilcan confortabilă
             </p>
             <div className="flex space-x-4">
               <Link href="https://facebook.com" aria-label="Facebook">

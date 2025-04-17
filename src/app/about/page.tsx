@@ -57,7 +57,7 @@ const AboutPage = () => {
         >
           <Image
             src={hero}
-            alt="Pensiunea Noastră"
+            alt="Pensiunea Vilcan"
             fill
             className="object-cover"
             priority
@@ -213,7 +213,7 @@ const AboutPage = () => {
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
                 În inima Topliței, într-un loc unde natura își dezvăluie cele mai frumoase peisaje, 
-                se află Pensiunea noastră - un refugiu modern care îmbină perfect confortul contemporan 
+                se află Pensiunea Vilcan - un refugiu modern care îmbină perfect confortul contemporan 
                 cu ospitalitatea tradițională românească.
               </motion.p>
               
@@ -225,7 +225,7 @@ const AboutPage = () => {
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
                 Fondată din pasiunea pentru turism și dorința de a oferi oaspeților noștri experiențe 
-                memorabile, pensiunea noastră a devenit rapid un punct de referință pentru cei care 
+                memorabile, pensiunea Vilcan a devenit rapid un punct de referință pentru cei care 
                 caută mai mult decât o simplă cazare.
               </motion.p>
               
@@ -285,7 +285,7 @@ const AboutPage = () => {
                 >
                   <Image
                     src="/images/about/story.jpg"
-                    alt="Pensiunea Noastră"
+                    alt="Pensiunea Vilcan"
                     fill
                     className="object-cover"
                   />

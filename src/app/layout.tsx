@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
-        <title>Pensiunea Noastră - Cazare de Lux în Toplița</title>
+        <title>Pensiunea Vilcan - Cazare de Lux în Toplița</title>
         <meta name="description" content="Descoperiți confortul și luxul într-o locație pitorească din Toplița. Camere elegante, facilități moderne și experiențe memorabile." />
         <link rel="icon" href="/favicon.ico" />
       </head>
@@ -41,7 +41,7 @@ export default function RootLayout({
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    Pensiunea Noastră
+                    Pensiunea Vilcan
                   </motion.a>
                   <div className="hidden md:flex items-center space-x-8">
                     <NavLink href="/">Acasă</NavLink>
@@ -137,7 +137,7 @@ export default function RootLayout({
                           <SocialIcon href="#" icon="twitter" />
                         </div>
                         <p className="text-text-3 text-sm text-center">
-                          &copy; {new Date().getFullYear()} Pensiunea Noastră
+                          &copy; {new Date().getFullYear()} Pensiunea Vilcan
                         </p>
                       </div>
                     </motion.div>
@@ -152,7 +152,7 @@ export default function RootLayout({
               <div className="container-width section-padding">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                   <div>
-                    <h3 className="text-3xl font-heading font-bold mb-6 text-gradient">Pensiunea Noastră</h3>
+                    <h3 className="text-3xl font-heading font-bold mb-6 text-gradient">Pensiunea Vilcan</h3>
                     <p className="text-gray-300 mb-6">
                       Experiențe memorabile într-un cadru natural spectaculos.
                     </p>
@@ -218,7 +218,7 @@ export default function RootLayout({
                   </div>
                 </div>
                 <div className="mt-16 pt-8 border-t border-white border-opacity-10 text-center text-gray-400">
-                  <p>&copy; {new Date().getFullYear()} Pensiunea Noastră. Toate drepturile rezervate.</p>
+                  <p>&copy; {new Date().getFullYear()} Pensiunea Vilcan. Toate drepturile rezervate.</p>
                 </div>
               </div>
             </footer>
