@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import header from '../../../public/header.jpg';
+import header from '../../../public/header.webp';
 
 const Hero = () => {
   const ref = useRef(null);
@@ -83,6 +83,7 @@ const Hero = () => {
           fill
           priority
           className="object-cover object-center transform scale-110"
+          quality={100}
         />
         <div className="absolute inset-0 bg-black opacity-40"></div>
         

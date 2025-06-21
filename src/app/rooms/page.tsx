@@ -2,82 +2,88 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
-import camera from '../../../public/camera.jpg';
+import camera from '../../../public/camera.webp';
+import roomone from '../../../public/rooms/roomone/roomone.webp';
+import roomtwo from '../../../public/rooms/roomtwo/roomtwo.webp';
+import roomthree from '../../../public/rooms/roomthree/roomthree.webp';
 
 const rooms = [
   {
     id: 'deluxe-mountain-view',
-    name: 'Camera cu vedere la munte',
-    description: 'O cameră spațioasă cu vedere la munte, balcon privat și facilități moderne.',
-    longDescription: 'Bucurați-vă de priveliștea spectaculoasă a munților din această cameră elegantă. Dotată cu un pat king-size confortabil, baie privată de lux, și un balcon spațios perfect pentru a savura cafeaua de dimineață în mijlocul naturii.',
-    price: 180,
-    size: '32 m²',
-    capacity: '2 persoane',
-    beds: '1 pat king-size',
+    name: 'Deluxe Double Room',
+    description: 'O cameră spațioasă cu vedere la munte.Cu baie si bucatarie comune. Bucurați-vă de priveliști impresionante și aer proaspăt de munte.',
+    longDescription: 'Bucurați-vă de priveliștea spectaculoasă a munților din această cameră elegantă. Dotată cu un pat king-size confortabil si o canapea extensibila, baie comună si bucatarie comună, perfect pentru a savura cafeaua de dimineață în mijlocul naturii.',
+    price: 195,
+    size: '45 m²',
+    capacity: '2 persoane + 1 copil',
+    beds: '1 pat king-size + 1 canapea extensibila',
     features: [
       'Vedere panoramică la munte',
-      'Balcon privat mobilat',
-      'Baie de lux cu duș walk-in',
-      'Smart TV 4K',
-      'Mini bar',
-      'Wifi gratuit',
-      'Aer condiționat',
-      'Seif în cameră'
+      'Baie comună',
+      'Bucatarie comună',
+      'TV HD',
+      'Wi-Fi gratuit',
+      'Ciubăr',    
     ],
     color: 'from-blue-500/20 to-cyan-400/20',
     accent: 'bg-gradient-to-r from-blue-500 to-cyan-400',
-    images: [camera, camera, camera]
+    images: [roomone]
   },
   {
     id: 'family-suite',
-    name: 'Camera de familie',
-    description: 'O cameră spațioasă cu vedere la pădure, chicinetă și zonă de relaxare.',
-    longDescription: 'Perfect pentru familii, această suită oferă spațiu generos și toate facilitățile necesare pentru un sejur confortabil. Include o zonă de living separată, chicinetă complet utilată și două băi pentru confort maxim.',
-    price: 250,
-    size: '48 m²',
-    capacity: '4 persoane',
-    beds: '1 pat king-size + 2 paturi single',
+    name: 'Double Room ',
+    description: 'O cameră spațioasă cu vedere la gradina, și zonă de relaxare, perfectă pentru familii care doresc să se bucure de natură împreună.',
+    longDescription: 'Perfect pentru familie, această cameră oferă spațiu generos și toate facilitățile necesare pentru un sejur confortabil in inima naturii.',
+    price: 173,
+    size: '38 m²',
+    capacity: '2 persoane',
+    beds: '1 pat king-size',
     features: [
-      'Vedere la pădure',
-      'Chicinetă complet utilată',
-      'Zonă de living separată',
-      'Două băi',
-      'Smart TV 4K',
-      'Wifi gratuit',
-      'Aer condiționat',
-      'Masă de dining'
+      'Vedere la gradina',
+      'Zonă de relaxare',
+      'Wi-Fi gratuit',
+      'Baie comună',
+      'TV',
+      'Ciubăr',
     ],
     color: 'from-emerald-500/20 to-teal-400/20',
     accent: 'bg-gradient-to-r from-emerald-500 to-teal-400',
-    images: [camera, camera, camera]
+    images: [roomtwo]
   },
   {
     id: 'premium-suite',
-    name: 'Suita Premium',
-    description: 'O suită luxoasă cu vedere panoramică, șemineu și facilități premium.',
-    longDescription: 'Experimentați luxul suprem în suita noastră premium. Cu vedere panoramică la 180°, șemineu romantic, și o terasă privată spațioasă, această suită oferă o experiență de neuitat.',
-    price: 320,
-    size: '60 m²',
+    name: 'Deluxe Double Room',
+    description: 'O cameră spațioasă cu vedere la munte.Cu baie privata si bucatarie comune. Bucurați-vă de priveliști impresionante și aer proaspăt de munte.',
+    longDescription: 'Bucurați-vă de priveliștea spectaculoasă a munților din această cameră elegantă. Dotată cu un pat king-size confortabil, baie privata si bucatarie comună, perfect pentru a savura cafeaua de dimineață în mijlocul naturii.',
+    price: 197,
+    size: '38 m²',
     capacity: '2 persoane',
     beds: '1 pat king-size premium',
     features: [
-      'Vedere panoramică 180°',
-      'Terasă privată mare',
-      'Șemineu',
-      'Jacuzzi',
-      'Sistem audio premium',
-      'Smart TV 4K',
-      'Mini bar premium',
-      'Room service 24/7'
+      'Wi-Fi gratuit',
+      'Baie privata',
+      'Bucatarie comună',
+      'TV',
+      'Ciubăr',
+      'Zonă de relaxare',
     ],
     color: 'from-purple-500/20 to-indigo-400/20',
     accent: 'bg-gradient-to-r from-purple-500 to-indigo-400',
-    images: [camera, camera, camera]
+    images: [roomthree]
   }
 ];
 
+interface IFloatingEle {
+  delay:number,
+  size:number,
+  left:any,
+  top:any,
+  color:string,
+  blur:boolean
+}
+
 // Decorative floating element component
-const FloatingElement = ({ delay = 0, size, left, top, color, blur = false }) => {
+const FloatingElement:React.FC<IFloatingEle> = ({ delay = 0, size, left, top, color, blur = false }) => {
   return (
     <motion.div
       className={`absolute rounded-full ${color} ${blur ? 'backdrop-blur-xl' : ''} mix-blend-multiply opacity-70`}
@@ -103,8 +109,14 @@ const FloatingElement = ({ delay = 0, size, left, top, color, blur = false }) =>
   );
 };
 
+interface FeatureBadgeProps {
+  feature : any,
+  index:number,
+  accent:string
+}
+
 // Hover Card effect component
-const FeatureBadge = ({ feature, index, accent }) => {
+const FeatureBadge:React.FC<FeatureBadgeProps> = ({ feature, index, accent }) => {
   return (
     <motion.div 
       className={`flex items-center text-gray-600 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group`}
@@ -134,7 +146,7 @@ export default function RoomsPage() {
   });
 
   // Mouse position parallax effect
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e:any) => {
     setMousePosition({
       x: e.clientX,
       y: e.clientY

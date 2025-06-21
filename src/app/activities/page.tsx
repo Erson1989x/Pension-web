@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import LeafletMap from "../../components/LeafletMap/LeafletMap";
 import hiking from "../../../public/hiking.jpg";
 import skiing from "../../../public/partia.jpg";
 import bicig from "../../../public/bicig.jpg";
@@ -10,6 +11,8 @@ import cascada from "../../../public/cascada.jpg";
 import manastire from "../../../public/manastire.jpg";
 import banffy from "../../../public/banffy.jpg";
 import aventuri from "../../../public/aventuri.jpg";
+import urmanczy from "../../../public/urmanczy.jpg";
+import echitare from "../../../public/echitatie.webp";
 
 // Activity data with location information
 const activities = [
@@ -21,12 +24,13 @@ const activities = [
     duration: "1-4 ore",
     difficulty: "Moderate",
     description: "Explorați trasee pitorești cu priveliști uimitoare ale pajiștilor montane, pădurilor și vârfurilor muntoase. Rute disponibile pentru toate nivelurile de experiență",
-    features: ["Guided tours available", "Trail maps provided", "Packed lunch option"],
+    features: ["Trasee marcate", "Ghiduri locale", "Echipament de siguranță"],
     images: [hiking],
     location: {
-      address: "Strada Dealului, Toplița 535700",
+      address: "Imprejurimi, Toplița 535700",
       coordinates: "46.9254° N, 25.3475° E",
-      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2847.3073337245233!2d25.348311376850283!3d46.92840487123564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474968df10f859e5%3A0x90bcf634b24e71c6!2sStrada+Dealului!5e0!3m2!1sen!2sro!4v1712871553893!5m2!1sen!2sro"
+      lat: 46.9254,
+      lng: 25.3475
     },
     color: "from-emerald-500/20 to-green-400/20",
     accent: "bg-gradient-to-r from-emerald-500 to-green-400"
@@ -38,13 +42,14 @@ const activities = [
     distance: "3 km",
     duration: "Toata ziua",
     difficulty: "Varies",
-    description: "Experimentați pârtii pentru toate nivelurile de abilitate, de la zone ușoare pentru începători până la trasee provocatoare pentru experți, cu fundaluri montane impresionante.",
-    features: ["Equipment rental", "Ski school", "Free shuttle service"],
+    description: "Domeniul schiabil Pârtia Toplița se găsește la poalele munților Gurghiu. Este alcătuit din trei pârtii de schi deservite de două instalații de teleschi și o bandă rulantă, plus o pârtie de sanie.Datorită amplasamentului potrivit pârtiile beneficiază de o frumoasă panoramă spre munții Călimani dar și spre orașul Toplița",
+    features: ["Inchirieri de ski si snowboard", "Monitori de ski si snowboard", "Pârti de sanie", "Pârti de teleschi", "Bandă rulantă"],
     images: [skiing],
     location: {
-      address: "Pârtia de Schi Toplița, Toplița 535700",
-      coordinates: "46.9354° N, 25.3575° E",
-      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2846.872642038325!2d25.358311376850677!3d46.93340087123621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474968d979bdd6b7%3A0x77dbedd3144e05c4!2sP%C3%A2rtia+de+Schi+Topl%C3%AD%C8%9Ba!5e0!3m2!1sen!2sro!4v1712871649254!5m2!1sen!2sro"
+      address: "Strada Murelor, Toplița 535700",
+      coordinates: "46.9007923° N, 25.3296628° E",
+      lat: 46.9007923,
+      lng: 25.3296628
     },
     color: "from-blue-500/20 to-cyan-400/20",
     accent: "bg-gradient-to-r from-blue-500 to-cyan-400"
@@ -57,12 +62,13 @@ const activities = [
     duration: "1-4 ore",
     difficulty: "Moderate to Difficult",
     description: "Descoperiți trasee palpitante prin păduri și poteci montane, potrivite atât pentru cicliști ocazionali, cât și pentru bicicliști montani experimentați",
-    features: ["Bike rental", "Guided tours", "Trail maps"],
+    features: ["Inchirieri de biciclete", "Monitori de biciclete", "Inchirieri de ATV", "Trasee marcate"],
     images: [bicig],
     location: {
       address: "Strada Sportivilor, Toplița 535700",
       coordinates: "46.9254° N, 25.3575° E",
-      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2847.3073337245233!2d25.358311376850677!3d46.93340087123621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474968d979bdd6b7%3A0x77dbedd3144e05c4!2sStrada+Sportivilor!5e0!3m2!1sen!2sro!4v1712871649254!5m2!1sen!2sro"
+      lat: 46.9254,
+      lng: 25.3575
     },
     color: "from-orange-500/20 to-amber-400/20",
     accent: "bg-gradient-to-r from-orange-500 to-amber-400"
@@ -74,13 +80,14 @@ const activities = [
     distance: "5 km",
     duration: "Flexibil",
     difficulty: "Easy",
-    description: "Relaxați-vă și revigorați-vă în apele termale cu proprietăți terapeutice, completate de o gamă de tratamente de wellness",
-    features: ["Sauna & steam room", "Massage treatments", "Indoor and outdoor pools"],
+    description: "Băile Bánffy Toplița Centru Wellness SPA dispune de două bazine de înot cu apă potabilă încălzită, unul acoperit de 400 mp și unul descoperit de 220 mp care este folosit pe timp de vară. Interiorul găzduiește pe lângă bazinul de înot: vestiare separate pentru femei și bărbați, sală de fitness, saună uscată, saună umedă, cameră de sare, jacuzzi, sală de mese; Contra cost – masaj. Aerul umed din interior este schimbat permanent printr-o instalație care introduce aer uscat pentru confortul turiștilor",
+    features: ["Sauna", "Tratament masaj", "Piscină interioară și exterioară", "Fitness"],
     images: [spa],
     location: {
-      address: "Bánffy Wellness Resort, Toplița 535700",
-      coordinates: "46.9284° N, 25.3505° E",
-      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2847.3073337245233!2d25.348311376850283!3d46.92840487123564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474968df10f859e5%3A0x90bcf634b24e71c6!2sB%C3%A1nffy+Wellness+Resort!5e0!3m2!1sen!2sro!4v1712871553893!5m2!1sen!2sro"
+      address: "Str. Magura, Toplița 535700",
+      coordinates: "46.9391° N, 25.3604° E",
+      lat: 46.9391,
+      lng: 25.3604
     },
     color: "from-purple-500/20 to-fuchsia-400/20",
     accent: "bg-gradient-to-r from-purple-500 to-fuchsia-400"
@@ -91,14 +98,15 @@ const activities = [
     category: "adventure",
     distance: "7 km",
     duration: "1-2 ore",
-    difficulty: "Intermediate",
-    description: "Descoperiți cascada Toplita, o cascada deosebita situata in apropierea pensiunii noastre.",
-    features: ["Tandem flights", "Professional guides", "Photography service"],
+    difficulty: "Usor",
+    description: "Cascada de apă termală din Toplița este un loc cu adevărat special și unic în România. Situată pe strada Cascadei, în apropierea centrului orașului, această cascadă este alimentată de izvorul termal „Bradul” și are o temperatură constantă de aproximativ 27°C, chiar și în mijlocul iernii",
+    features: ["Trasee naturale", "Fotografie", "Observarea naturii"],
     images: [cascada],
     location: {
-      address: "Cascada Toplița, Toplița 535700",
-      coordinates: "46.9334° N, 25.3605° E",
-      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2846.872642038325!2d25.358311376850677!3d46.93340087123621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474968d979bdd6b7%3A0x77dbedd3144e05c4!2sCascada+Topl%C3%AD%C8%9Ba!5e0!3m2!1sen!2sro!4v1712871649254!5m2!1sen!2sro"
+      address: "Strada Cascadei 9, Toplița 535700",
+      coordinates: "46.91667° N, 25.35000° E",
+      lat: 46.91667,
+      lng: 25.35000
     },
     color: "from-teal-500/20 to-cyan-400/20",
     accent: "bg-gradient-to-r from-teal-500 to-cyan-400"
@@ -110,13 +118,14 @@ const activities = [
     distance: "4 km",
     duration: "1-2 ore",
     difficulty: "Easy",
-    description: "Descoperiți manastirea Toplita, o manastire deosebita situata in apropierea pensiunii noastre.",
-    features: ["Local guide", "Craft demonstrations", "Food tastings"],
+    description: "Mănăstirea Sfântul Ilie din Toplița este un așezământ monahal ortodox cu o istorie profund legată de identitatea spirituală românească. A fost întemeiată în 1928 de Patriarhul Miron Cristea, chiar în grădina casei sale natale, prin aducerea unei biserici de lemn din satul Stânceni, construită inițial în 1847.",
+    features: ["Observarea istoric", "Fotografie", "Vizitare"],
     images: [manastire],
     location: {
-      address: "Mănăstirea Toplița, Toplița 535700",
-      coordinates: "46.9274° N, 25.3545° E",
-      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2847.398123062728!2d25.352311376850177!3d46.92740087123556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474968df6b9e1a39%3A0x82e5a0678c28fb72!2sM%C4%83n%C4%83stirea+Topl%C3%AD%C8%9Ba!5e0!3m2!1sen!2sro!4v1712871699605!5m2!1sen!2sro"
+      address: "Strada Stefan Cel Mare 70, Toplița 535700",
+      coordinates: "46.9395° N, 25.3609° E",
+      lat: 46.9395,
+      lng: 25.3609
     },
     color: "from-indigo-500/20 to-violet-400/20",
     accent: "bg-gradient-to-r from-indigo-500 to-violet-400"
@@ -128,22 +137,61 @@ const activities = [
     distance: "6 km",
     duration: "1-2 ore",
     difficulty: "Easy",
-    description: "Descoperiți banffy Toplita, o zona deosebita situata in apropierea pensiunii noastre.",
-    features: ["Equipment rental", "Fishing permits", "Cooking your catch"],
+    description: "Ștrandul Bánffy se află la altitudinea de 677 metri și la distanță de 600 m de centrul orașului; între anii 1228-1948 era parte componentă a teritoriului familiei Bánffy, până în anul 1850 ștrandul fiind vizitat doar de către membrii familiei și de invitații lor. Apa izvorului a fost captată, în trecut, într-un bazin cu pereții de scânduri și folosit pentru băi, notorietatea lui crescând an de an datorită virtuților lor curative; de jur împrejurul ștrandului erau vestiare. Aceste vestiare au fost demolate de către familia respectivă în 1937 și au construit bazinul de beton având dimensiunile de 33×20 m, care este și în prezent. Analiza chimică a apei de aici a fost făcută prima oară de un profesor din Insbruck (Leobisch) în anul 1882, iar în 1893 de Than Károly.",
+    features: ["Piscina", "Apa termala", "Relaxare", "Fotografie"],
     images: [banffy],
     location: {
-      address: "Castelul Bánffy, Toplița 535700",
-      coordinates: "46.9294° N, 25.3525° E",
-      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2847.23644039073!2d25.350311376850353!3d46.92940087123574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474968de4f9d18e1%3A0xfbd131e0e7cf4c98!2sCastelul+B%C3%A1nffy!5e0!3m2!1sen!2sro!4v1712871742334!5m2!1sen!2sro"
+      address: "Strada Măgura nr. 9A, Toplița 535700",
+      coordinates: "46.9393° N, 25.3615° E",
+      lat: 46.9393,
+      lng: 25.3615
     },
     color: "from-rose-500/20 to-pink-400/20",
     accent: "bg-gradient-to-r from-rose-500 to-pink-400"
-  }
+  },
+    {
+    id:"Urmánczy",
+    name: "Ștrandul Urmánczy",
+    category: "outdoor",
+    distance: "6 km",
+    duration: "1-2 ore",
+    difficulty: "Easy",
+    description: "Este un loc cu tradiție, cu apă termală minerală la 26–27°C, ideală pentru relaxare și tratamente. Piscina olimpică (50×20 m) și bazinul cu pietre încălzite natural sunt atracții rare în zonă.",
+    features: ["Piscina", "Apa termala", "Relaxare", "Fotografie"],
+    images: [urmanczy],
+    location: {
+      address: "Strada Apelor nr. 19, Toplița 535700",
+      coordinates: "46.9368° N, 25.3542° E",
+      lat: 46.9368,
+      lng: 25.3542
+    },
+    color: "from-rose-500/20 to-pink-400/20",
+    accent: "bg-gradient-to-r from-rose-500 to-pink-400"
+  },
+  {
+    id:"centrul-echitatie",
+    name: "Centrul de echitatie Toplita",
+    category: "outdoor",
+    distance: "6 km",
+    duration: "1-2 ore",
+    difficulty: "Easy",
+    description: "Centrul oferă lecții de călărie în manej, plimbări călare prin natură, excursii ghidate și chiar plimbări cu trăsura. Caii sunt din rase variate – de la pur-sânge arab la frizieni – și sunt bine dresați, inclusiv pentru începători. Este un loc perfect pentru a te reconecta cu natura și cu tine însuți",
+    features: ["Lecții de călărie", "Plimbări călare", "Excursii ghidate", "Trăsuri"],
+    images: [echitare],
+    location: {
+      address: "Strada Vilelor, Toplița 535700",
+      coordinates: "46.9386° N, 25.3672° E",
+      lat: 46.9386,
+      lng: 25.3672
+    },
+    color: "from-rose-500/20 to-pink-400/20",
+    accent: "bg-gradient-to-r from-rose-500 to-pink-400"
+  },
 ];
 
 // Category filters with colors
 const categories = [
-  { id: "all", name: "Toate Categorile", color: "bg-gradient-to-r from-blue-500 to-purple-500" },
+  { id: "all", name: "Toate Categoriile", color: "bg-gradient-to-r from-blue-500 to-purple-500" },
   { id: "outdoor", name: "Outdoor", color: "bg-gradient-to-r from-emerald-500 to-green-400" },
   { id: "winter", name: "Iarna", color: "bg-gradient-to-r from-blue-500 to-cyan-400" },
   { id: "adventure", name: "Aventura", color: "bg-gradient-to-r from-teal-500 to-cyan-400" },
@@ -151,10 +199,12 @@ const categories = [
   { id: "cultural", name: "Cultural", color: "bg-gradient-to-r from-indigo-500 to-violet-400" },
 ];
 
+// Interfaces
 interface Location {
   address: string;
   coordinates: string;
-  googleMapsUrl: string;
+  lat: number;
+  lng: number;
 }
 
 interface IActivity {
@@ -172,48 +222,31 @@ interface IActivity {
   accent: string;
 }
 
-// Decorative floating element component
-const FloatingElement = ({ delay = 0, size, left, top, color, blur = false }: { delay?: number; size: number; left: number; top: number; color: string; blur?: boolean }) => {
-  return (
-    <motion.div
-      className={`absolute rounded-full ${color} ${blur ? 'backdrop-blur-xl' : ''} mix-blend-multiply opacity-70`}
-      style={{ 
-        width: size, 
-        height: size, 
-        left: `${left}%`, 
-        top: `${top}%`,
-        filter: blur ? 'blur(8px)' : 'none'
-      }}
-      animate={{
-        y: [0, 15, 0],
-        x: [0, 5, 0],
-        rotate: [0, 5, 0],
-      }}
-      transition={{
-        duration: 12,
-        repeat: Infinity,
-        repeatType: "reverse",
-        delay,
-      }}
-    />
-  );
-};
-
-// Feature badge component
-const FeatureBadge = ({ feature, index, color }: { feature: string; index: number; color: string }) => {
-  return (
-    <motion.div 
-      className="flex items-center text-gray-600 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-white/30"
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
-      whileHover={{ scale: 1.05, y: -2 }}
-    >
-      <div className={`w-1.5 h-full self-stretch ${color} mr-2 rounded-full`}></div>
-      <span className="text-sm">{feature}</span>
-    </motion.div>
-  );
-};
+// Floating elements animation component
+const FloatingElement = ({ delay, size, left, top, color, blur = false }: { 
+  delay: number; 
+  size: number; 
+  left: number; 
+  top: number; 
+  color: string; 
+  blur?: boolean 
+}) => (
+  <motion.div
+    className={`absolute w-${size} h-${size} ${color} rounded-full ${blur ? 'backdrop-blur-sm' : ''}`}
+    style={{ left: `${left}%`, top: `${top}%`, width: `${size}px`, height: `${size}px` }}
+    animate={{
+      y: [0, -20, 0],
+      x: [0, 10, 0],
+      scale: [1, 1.1, 1],
+    }}
+    transition={{
+      duration: 8,
+      repeat: Infinity,
+      delay,
+      ease: [0.22, 1, 0.36, 1],
+    }}
+  />
+);
 
 // Modern map component with styling based on activity colors
 const ActivityMap = ({ location, color, accent }: { location: Location; color: string; accent: string }) => {
@@ -241,15 +274,13 @@ const ActivityMap = ({ location, color, accent }: { location: Location; color: s
         className="absolute inset-0"
         style={{ y: mapY }}
       >
-        <iframe
-          src={location.googleMapsUrl}
-          width="100%"
+        <LeafletMap
+          lat={location.lat}
+          lng={location.lng}
           height="100%"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        ></iframe>
+          className="rounded-xl"
+          popupText={location.address}
+        />
       </motion.div>
       
       {/* Location indicator */}
@@ -266,35 +297,25 @@ const ActivityMap = ({ location, color, accent }: { location: Location; color: s
   );
 };
 
-const ActivitiesPage = () => {
-  const [activeCategory, setActiveCategory] = useState<string>("all");
+export default function Activities() {
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedActivity, setSelectedActivity] = useState<IActivity | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  
   const parallaxRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: parallaxRef,
-    offset: ["start start", "end start"]
+    offset: ["start end", "end start"]
   });
 
-  const filteredActivities = activeCategory === "all"
-    ? activities
-    : activities.filter((activity) => activity.category === activeCategory);
+  // Filter activities based on selected category
+  const filteredActivities = selectedCategory === "all" 
+    ? activities 
+    : activities.filter(activity => activity.category === selectedCategory);
 
-  const handleActivityClick = (activity: IActivity) => {
-    setSelectedActivity(activity);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const closeActivityDetail = () => {
-    setSelectedActivity(null);
-  };
-
-  // Mouse position for parallax effect
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setMousePosition({
-      x: e.clientX,
-      y: e.clientY
-    });
+  // Handle mouse movement for cursor glow effect
+  const handleMouseMove = (e: any) => {
+    setMousePosition({ x: e.clientX, y: e.clientY });
   };
 
   useEffect(() => {
@@ -348,40 +369,35 @@ const ActivitiesPage = () => {
             transition={{ duration: 1, delay: 0.5 }}
             className="h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto mb-8"
           />
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="max-w-2xl mx-auto text-xl md:text-2xl text-gray-200"
-          >
-            Descoperiți activitățile și atracțiile din jurul pensiunii noastre
-          </motion.p>
+          <p className="text-xl md:text-2xl font-light max-w-2xl mx-auto leading-relaxed">
+            Descoperiți o gamă variată de activități în inima munților Toplița
+          </p>
         </motion.div>
       </section>
 
-      {/* Category Filter with Modern UI */}
-      <section className="py-12 px-4 bg-white/80 backdrop-blur-sm sticky top-0 z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto">
+      {/* Category Filters */}
+      <section className="py-16 bg-white/80 backdrop-blur-sm sticky top-0 z-40 border-b border-gray-200/50">
+        <div className="max-w-7xl mx-auto px-4">
           <motion.div 
-            className="flex flex-wrap justify-center gap-3"
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-wrap justify-center gap-4"
           >
             {categories.map((category, index) => (
               <motion.button
                 key={category.id}
-                className={`px-5 py-2.5 rounded-full shadow-sm text-white transition-all duration-300 ${
-                  activeCategory === category.id 
-                    ? `${category.color} shadow-md scale-105` 
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                onClick={() => setSelectedCategory(category.id)}
+                className={`px-6 py-3 rounded-full text-white font-medium transition-all duration-300 shadow-lg hover:shadow-xl ${
+                  selectedCategory === category.id
+                    ? `${category.color} scale-105`
+                    : "bg-gray-400 hover:bg-gray-500"
                 }`}
-                onClick={() => setActiveCategory(category.id)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
               >
                 {category.name}
               </motion.button>
@@ -390,328 +406,247 @@ const ActivitiesPage = () => {
         </div>
       </section>
 
-      {/* Activities Showcase */}
+      {/* Activities Grid */}
       <section className="py-20 px-4 relative">
-        {/* Background Decorative Elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <FloatingElement delay={1} size={300} left={-5} top={20} color="bg-blue-200/10" blur={true} />
-          <FloatingElement delay={3} size={250} left={85} top={40} color="bg-purple-200/10" blur={true} />
-          <FloatingElement delay={5} size={200} left={50} top={80} color="bg-emerald-200/10" blur={true} />
-        </div>
-
         <div className="max-w-7xl mx-auto">
-          {selectedActivity ? (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              className="bg-white/80 backdrop-blur-md rounded-3xl overflow-hidden shadow-2xl border border-white/20"
-            >
-              <div className="relative h-[40vh] overflow-hidden">
-                <motion.div
-                  style={{ 
-                    scale: 1.1,
-                    x: ((mousePosition.x / window.innerWidth) - 0.5) * 20,
-                    y: ((mousePosition.y / window.innerHeight) - 0.5) * 10
-                  }}
-                  transition={{ type: "spring", stiffness: 50, damping: 30 }}
-                  className="absolute inset-0"
-                >
-                  <Image
-                    src={selectedActivity.images[0]}
-                    alt={selectedActivity.name}
-                    fill
-                    className="object-cover"
-                  />
-                </motion.div>
-                <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent"></div>
-                <div className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center">
-                  <motion.h2 
-                    className="text-3xl md:text-4xl font-bold text-white"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                  >
-                    {selectedActivity.name}
-                  </motion.h2>
-                  <motion.button
-                    onClick={closeActivityDetail}
-                    className="bg-white/20 backdrop-blur-md text-white p-2 rounded-full hover:bg-white/30 transition-all duration-300"
-                    whileHover={{ scale: 1.1, rotate: 90 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </motion.button>
-                </div>
-              </div>
-
-              <div className="p-8 md:p-12">
-                <div className="flex flex-wrap gap-4 mb-8">
-                  <motion.div 
-                    className="flex items-center bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: 0.1 }}
-                  >
-                    <svg className="w-5 h-5 mr-2 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    <span className="text-gray-700">{selectedActivity.distance}</span>
-                  </motion.div>
-
-                  <motion.div 
-                    className="flex items-center bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: 0.2 }}
-                  >
-                    <svg className="w-5 h-5 mr-2 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <span className="text-gray-700">{selectedActivity.duration}</span>
-                  </motion.div>
-
-                  <motion.div 
-                    className="flex items-center bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: 0.3 }}
-                  >
-                    <svg className="w-5 h-5 mr-2 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2m0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                    <span className="text-gray-700">{selectedActivity.difficulty}</span>
-                  </motion.div>
-                </div>
-
-                <motion.div 
-                  className="mb-8"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                >
-                  <h3 className="text-2xl font-semibold mb-4 text-gray-900 relative inline-block">
-                    Descriere
-                    <motion.div 
-                      className={`absolute bottom-0 left-0 h-1 ${selectedActivity.accent} rounded-full`}
-                      initial={{ width: 0 }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: 0.5, delay: 0.6 }}
-                    />
-                  </h3>
-                  <p className="text-lg leading-relaxed text-gray-700">{selectedActivity.description}</p>
-                </motion.div>
-
-                <motion.div 
-                  className="mb-8"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                >
-                  <h3 className="text-2xl font-semibold mb-4 text-gray-900 relative inline-block">
-                    Facilități
-                    <motion.div 
-                      className={`absolute bottom-0 left-0 h-1 ${selectedActivity.accent} rounded-full`}
-                      initial={{ width: 0 }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: 0.5, delay: 0.7 }}
-                    />
-                  </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {selectedActivity.features.map((feature, index) => (
-                      <FeatureBadge key={index} feature={feature} index={index} color={selectedActivity.accent} />
-                    ))}
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                  className="space-y-6"
-                >
-                  <h3 className="text-2xl font-semibold mb-4 text-gray-900 relative inline-block">
-                    Locație
-                    <motion.div 
-                      className={`absolute bottom-0 left-0 h-1 ${selectedActivity.accent} rounded-full`}
-                      initial={{ width: 0 }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: 0.5, delay: 0.8 }}
-                    />
-                  </h3>
-                  
-                  <div className="bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-white/20">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-4">
-                        <div className="space-y-2">
-                          <p className="text-gray-700">
-                            <span className="inline-flex items-center font-medium text-gray-900 mb-1">
-                              <svg className="w-5 h-5 mr-2 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                              </svg>
-                              Adresă
-                            </span><br />
-                            <span className="ml-7">{selectedActivity.location.address}</span>
-                          </p>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <p className="text-gray-700">
-                            <span className="inline-flex items-center font-medium text-gray-900 mb-1">
-                              <svg className="w-5 h-5 mr-2 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                              </svg>
-                              Coordonate
-                            </span><br />
-                            <span className="ml-7">{selectedActivity.location.coordinates}</span>
-                          </p>
-                        </div>
-                        
-                        <motion.a
-                          href={selectedActivity.location.googleMapsUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`${selectedActivity.accent} text-white px-6 py-3 rounded-xl inline-flex items-center shadow-lg hover:shadow-xl transition-all duration-300 mt-4`}
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                          </svg>
-                          Vezi pe Google Maps
-                        </motion.a>
-                      </div>
-                      
-                      <ActivityMap 
-                        location={selectedActivity.location} 
-                        color={selectedActivity.color} 
-                        accent={selectedActivity.accent} 
-                      />
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredActivities.map((activity, index) => (
-                <motion.div
-                  key={activity.id}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ 
-                    duration: 0.7, 
-                    delay: index * 0.1,
-                    ease: [0.23, 1, 0.32, 1]
-                  }}
-                  whileHover={{ y: -10 }}
-                  className="relative group"
-                >
-                  <div className={`absolute inset-0 rounded-3xl ${activity.color} opacity-25 blur-lg transform group-hover:scale-105 transition-all duration-300`} />
-                  
-                  <motion.div 
-                    className="bg-white/80 backdrop-blur-sm rounded-3xl overflow-hidden shadow-lg border border-white/20 relative z-10 h-full flex flex-col transform group-hover:shadow-xl transition-all duration-300"
-                  >
-                    <div className="relative h-56 overflow-hidden">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            layout
+          >
+            {filteredActivities.map((activity, index) => (
+              <motion.div
+                key={activity.id}
+                layout
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -50 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group cursor-pointer"
+                onClick={() => setSelectedActivity(activity)}
+              >
+                {/* Activity Card */}
+                <div className={`relative h-[500px] rounded-2xl overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-500 bg-gradient-to-br ${activity.color} backdrop-blur-sm border border-white/20`}>
+                  {/* Image */}
+                  <div className="relative h-60 overflow-hidden">
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                      className="h-full"
+                    >
                       <Image
                         src={activity.images[0]}
                         alt={activity.name}
                         fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        className="object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300" />
-                      
-                      <div className="absolute bottom-0 left-0 right-0 p-6">
-                        <h3 className="text-2xl font-bold text-white mb-2">{activity.name}</h3>
-                        <div className={`w-16 h-1 ${activity.accent} rounded-full`} />
+                    </motion.div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    
+                    {/* Category Badge */}
+                    <div className="absolute top-4 left-4">
+                      <span className={`${activity.accent} text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg`}>
+                        {categories.find(cat => cat.id === activity.category)?.name}
+                      </span>
+                    </div>
+                    
+                    {/* Difficulty Badge */}
+                    <div className="absolute top-4 right-4">
+                      <span className="bg-black/40 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium">
+                        {activity.difficulty}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6 space-y-4">
+                    <h3 className="text-2xl font-bold text-gray-900 group-hover:text-gray-700 transition-colors">
+                      {activity.name}
+                    </h3>
+                    
+                    <p className="text-gray-700 line-clamp-2 leading-relaxed">
+                      {activity.description}
+                    </p>
+                    
+                    {/* Activity Details */}
+                    <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                      <div className="flex items-center space-x-1">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <span>{activity.distance}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>{activity.duration}</span>
                       </div>
                     </div>
                     
-                    <div className="p-6 flex-grow flex flex-col">
-                      <div className="flex gap-2 mb-4">
-                        <div className="bg-gray-100/80 backdrop-blur-sm px-3 py-1 rounded-md text-sm text-gray-700">
-                          {activity.distance}
-                        </div>
-                        <div className="bg-gray-100/80 backdrop-blur-sm px-3 py-1 rounded-md text-sm text-gray-700">
-                          {activity.duration}
-                        </div>
-                      </div>
-                      
-                      <p className="text-gray-600 mb-6 line-clamp-3">{activity.description}</p>
-                      
-                      {/* Add location info instead of map */}
-                      <div className="mt-auto mb-4 flex items-center text-gray-600">
-                        <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                        <span className="text-sm truncate">{activity.location.address}</span>
-                      </div>
-                      
-                      <motion.button
-                        className={`${activity.accent} text-white py-3 rounded-xl font-medium shadow-md hover:shadow-lg transition-all duration-300`}
-                        onClick={() => handleActivityClick(activity)}
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
-                      >
-                        Descoperă Mai Mult
-                      </motion.button>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              ))}
-            </div>
-          )}
+                    {/* CTA Button */}
+                    <motion.button
+                      className={`${activity.accent} text-white px-6 py-2 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 w-full`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      Vezi Detalii
+                    </motion.button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-20 px-4 bg-gradient-to-r from-blue-900 to-indigo-900 relative overflow-hidden">
-        <FloatingElement delay={2} size={300} left={80} top={20} color="bg-blue-300/10" blur={true} />
-        <FloatingElement delay={4} size={200} left={10} top={60} color="bg-purple-300/10" blur={true} />
-        
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-white mb-6"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
+      {/* Activity Detail Modal */}
+      {selectedActivity && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedActivity(null)}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
           >
-            Pregătit pentru aventura ta?
-          </motion.h2>
-          <motion.p 
-            className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            Rezervă-ți sejurul acum și descoperă toate aceste activități minunate din împrejurimile pensiunii noastre.
-          </motion.p>
-          <motion.button 
-            className="bg-white text-indigo-900 px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            whileHover={{ 
-              scale: 1.05,
-              boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1)"
-            }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Rezervă Acum
-          </motion.button>
-        </div>
-      </section>
+            {/* Header */}
+            <div className="relative h-80">
+              <Image
+                src={selectedActivity.images[0]}
+                alt={selectedActivity.name}
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedActivity(null)}
+                className="absolute top-4 right-4 bg-black/40 backdrop-blur-sm text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-black/60 transition-colors"
+              >
+                ✕
+              </button>
+              
+              {/* Title Overlay */}
+              <div className="absolute bottom-6 left-6 text-white">
+                <h2 className="text-4xl font-bold mb-2">{selectedActivity.name}</h2>
+                <div className="flex gap-4 text-sm">
+                  <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                    {selectedActivity.distance}
+                  </span>
+                  <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                    {selectedActivity.duration}
+                  </span>
+                  <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                    {selectedActivity.difficulty}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-8 max-h-[calc(90vh-320px)] overflow-y-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Left Column - Description and Features */}
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Descriere</h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      {selectedActivity.description}
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Ce Oferim</h3>
+                    <ul className="space-y-2">
+                      {selectedActivity.features.map((feature, index) => (
+                        <li key={index} className="flex items-center space-x-2 text-gray-700">
+                          <span className={`w-2 h-2 rounded-full ${selectedActivity.accent}`}></span>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Right Column - Location and Map */}
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Locație</h3>
+                    
+                    {/* Interactive Map */}
+                    <ActivityMap 
+                      location={selectedActivity.location} 
+                      color={selectedActivity.color} 
+                      accent={selectedActivity.accent} 
+                    />
+                    
+                    <div className="mt-4 space-y-3">
+                      <div className="space-y-2">
+                        <p className="text-gray-700">
+                          <span className="inline-flex items-center font-medium text-gray-900 mb-1">
+                            <svg className="w-5 h-5 mr-2 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            Adresă
+                          </span><br />
+                          <span className="ml-7">{selectedActivity.location.address}</span>
+                        </p>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <p className="text-gray-700">
+                          <span className="inline-flex items-center font-medium text-gray-900 mb-1">
+                            <svg className="w-5 h-5 mr-2 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Coordonate
+                          </span><br />
+                          <span className="ml-7">{selectedActivity.location.coordinates}</span>
+                        </p>
+                      </div>
+                      
+                      <motion.a
+                        href={`https://www.google.com/maps?q=${selectedActivity.location.lat},${selectedActivity.location.lng}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`${selectedActivity.accent} text-white px-6 py-3 rounded-xl inline-flex items-center shadow-lg hover:shadow-xl transition-all duration-300 mt-4`}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                        </svg>
+                        Deschide în Google Maps
+                      </motion.a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+
+      {/* Cursor Glow Effect */}
+      <div
+        className="fixed pointer-events-none z-30 mix-blend-difference"
+        style={{
+          left: mousePosition.x - 10,
+          top: mousePosition.y - 10,
+        }}
+      >
+        <div className="w-5 h-5 bg-white rounded-full opacity-50" />
+      </div>
     </main>
   );
-};
-
-export default ActivitiesPage;
+}

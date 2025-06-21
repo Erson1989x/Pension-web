@@ -3,7 +3,10 @@ import React, { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import hero from '../../../public/header.jpg';
+import aboutUS from '../../../public/aboutus.webp';
+import cameratwo from '../../../public/rooms/roomtwo/roomtwo.webp';
+import lacPescuit from '../../../public/lacpescuit.webp';
+import ciubar from '../../../public/ciubar.webp';
 
 const AboutPage = () => {
   const storyRef = useRef(null);
@@ -56,7 +59,7 @@ const AboutPage = () => {
           style={{ y: heroY, scale: heroScale }}
         >
           <Image
-            src={hero}
+            src={aboutUS}
             alt="Pensiunea Vilcan"
             fill
             className="object-cover"
@@ -523,19 +526,19 @@ const AboutPage = () => {
               {
                 title: "Camere Confortabile",
                 description: "Camere spațioase și elegant mobilate, cu vedere la munte și toate facilitățile moderne pentru o experiență de cazare premium.",
-                image: "/images/about/rooms.jpg",
+                image: cameratwo,
                 color: "from-amber-500 to-orange-600"
               },
               {
-                title: "Restaurant Traditional",
-                description: "Bucătărie locală autentică, preparată cu ingrediente proaspete și rețete tradiționale care vă vor încânta papilele gustative.",
-                image: "/images/about/restaurant.jpg",
+                title: "Lac de Pescuit + Barca",
+                description: "Pescuit la lacul privat din incinta pensiunii, ideal pentru momente de relaxare și aventură.",
+                image: lacPescuit,
                 color: "from-purple-500 to-pink-600"
               },
               {
-                title: "Spa & Wellness",
-                description: "Zonă de relaxare cu saună, jacuzzi și servicii de masaj pentru revigorare completă și răsfăț după o zi de explorare.",
-                image: "/images/about/spa.jpg",
+                title: "Ciubar",
+                description: "Zonă de relaxare cu ciubar, după o zi de explorare.",
+                image: ciubar,
                 color: "from-blue-500 to-cyan-500"
               }
             ].map((facility, index) => (

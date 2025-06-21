@@ -3,46 +3,48 @@ import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import camera from '../../../public/camera.jpg';
+import camera from '../../../public/rooms/roomone/roomone.webp';
+import cameratwo from '../../../public/rooms/roomtwo/roomtwo.webp';
+import camerathree from '../../../public/rooms/roomthree/roomthree.webp';
 
 // Room data with enhanced information
 const rooms = [
   {
     id: 'deluxe-mountain-view',
-    name: 'Camera cu vedere la munte',
-    description: 'O cameră spațioasă cu vedere la munte, balcon privat și facilități moderne. Bucurați-vă de priveliști impresionante și aer proaspăt de munte.',
-    price: 180,
-    size: '32 m²',
-    capacity: '2 persoane',
-    beds: '1 pat king size',
-    features: ['Vedere la munte', 'Wi-Fi gratuit', 'Baie privată', 'Balcon spațios', 'TV HD'],
+    name: 'Deluxe Double Room (2 Adults + 1 Child)',
+    description: 'O cameră spațioasă cu vedere la munte.Cu baie si bucatarie comune. Bucurați-vă de priveliști impresionante și aer proaspăt de munte.',
+    price: 195,
+    size: '45 m²',
+    capacity: '2 persoane + 1 copil',
+    beds: '1 pat king size + 1 canapea extensibila',
+    features: ['Vedere la munte', 'Wi-Fi gratuit', 'Baie comună', 'bucatarie comună', 'TV HD'],
     image: camera,
     accent: 'from-cyan-500 to-blue-600',
     shadow: 'cyan-500/20'
   },
   {
     id: 'family-suite',
-    name: 'Suită de familie',
-    description: 'O cameră spațioasă cu vedere la pădure, chicinetă și zonă de relaxare, perfectă pentru familiile care doresc să se bucure de natură împreună.',
-    price: 250,
-    size: '48 m²',
-    capacity: '4 persoane',
-    beds: '1 pat matrimonial + 2 paturi twin',
-    features: ['Vedere la pădure', 'Chicinetă', 'Zonă de living', 'Două băi', 'TV HD'],
-    image: camera,
+    name: 'Double Room (2 Adults)',
+    description: 'O cameră spațioasă cu vedere la gradina, și zonă de relaxare, perfectă pentru familii care doresc să se bucure de natură împreună.',
+    price: 173,
+    size: '38 m²',
+    capacity: '2 persoane',
+    beds: '1 pat king size',
+    features: ['Vedere la gradina',  'Zonă de living', 'Wi-Fi gratuit', 'Baie comună', 'TV'],
+    image: cameratwo,
     accent: 'from-amber-500 to-orange-600',
     shadow: 'amber-500/20'
   },
   {
     id: 'premium-suite',
-    name: 'Suită premium',
-    description: 'O cameră luxoasă cu vedere panoramică, terasă privată și facilități de top, inclusiv șemineu și jacuzzi pentru o experiență memorabilă.',
-    price: 320,
-    size: '60 m²',
+    name: 'Deluxe Double Room (2 Adults)',
+    description: 'O cameră spațioasă cu vedere la munte.Cu baie privata si bucatarie comune. Bucurați-vă de priveliști impresionante și aer proaspăt de munte.',
+    price: 197,
+    size: '38 m²',
     capacity: '2 persoane',
     beds: '1 pat king size',
-    features: ['Vedere panoramică', 'Terasă privată', 'Șemineu', 'Jacuzzi', 'Mini bar', 'TV HD'],
-    image: camera,
+    features: ['Vedere la gradina', 'Baie privata', 'Bucatarie comună', 'Wi-Fi gratuit', 'TV HD'],
+    image: camerathree,
     accent: 'from-emerald-500 to-teal-600',
     shadow: 'emerald-500/20'
   },

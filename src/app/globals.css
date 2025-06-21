@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import Leaflet CSS for map styling */
+@import 'leaflet/dist/leaflet.css';
+
 @layer base {
   :root {
     /* Modern, nature-inspired color palette */
