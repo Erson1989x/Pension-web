@@ -13,6 +13,10 @@ import banffy from "../../../public/banffy.jpg";
 import aventuri from "../../../public/aventuri.jpg";
 import urmanczy from "../../../public/urmanczy.jpg";
 import echitare from "../../../public/echitatie.webp";
+import coaster from "../../../public/coaster.webp";
+import borsec from "../../../public/borsec.webp";
+import rosu from "../../../public/rosu.webp";
+
 
 // Activity data with location information
 const activities = [
@@ -183,6 +187,63 @@ const activities = [
       coordinates: "46.9386° N, 25.3672° E",
       lat: 46.9386,
       lng: 25.3672
+    },
+    color: "from-rose-500/20 to-pink-400/20",
+    accent: "bg-gradient-to-r from-rose-500 to-pink-400"
+  },
+    {
+    id:"Coaster",
+    name: "Alpine Coaster Toplita",
+    category: "outdoor",
+    distance: "6 km",
+    duration: "1-2 ore",
+    difficulty: "Easy",
+    description: "Alpine Coaster Toplița este una dintre cele mai spectaculoase atracții de aventură din România, perfectă pentru iubitorii de adrenalină și natură. Situată în inima Munților Gurghiu, lângă pârtia Bradul, această pistă de bob pe șine se întinde pe aproximativ 2 kilometri și șerpuiește prin păduri și peisaje montane de poveste",
+    features: ["Trasee naturale", "Fotografie", "Trăsuri", "Alpine Coaster"],
+    images: [coaster],
+    location: {
+      address: "Strada Vilelor, Toplița 535700",
+      coordinates: "46.9396° N, 25.3542° E",
+      lat: 46.9396,
+      lng: 25.3542
+    },
+    color: "from-rose-500/20 to-pink-400/20",
+    accent: "bg-gradient-to-r from-rose-500 to-pink-400"
+  },
+   {
+    id:"Borsec",
+    name: "Statiunea Borsec",
+    category: "outdoor",
+    distance: "6 km",
+    duration: "1-2 ore",
+    difficulty: "Easy",
+    description: "Borsec este faimoasă pentru izvoarele sale minerale cu proprietăți terapeutice, utilizate de secole pentru tratarea afecțiunilor digestive, renale și reumatice. Stațiunea este înconjurată de păduri de conifere și peisaje montane spectaculoase, oferind un aer curat și o atmosferă liniștitoare. Printre atracțiile sale se numără Parcul Central, Grota Urșilor, Poiana Zânelor și traseele de drumeție care străbat pădurile din jur",
+    features: ["Izvoare minerale", "Trasee de drumeție", "Parcuri naturale", "Relaxare","Fotografie","Wellness"],
+    images: [borsec],
+    location: {
+      address: "Orașul Borsec 535300",
+      coordinates: "46.9703° N, 25.5598° E",
+      lat: 46.9703,
+      lng: 25.5598
+    },
+    color: "from-rose-500/20 to-pink-400/20",
+    accent: "bg-gradient-to-r from-rose-500 to-pink-400"
+  },
+     {
+    id:"Rosu",
+    name: "Lacul Roșu",
+    category: "outdoor",
+    distance: "6 km",
+    duration: "1-2 ore",
+    difficulty: "Easy",
+    description: "Lacul Roșu este un lac de baraj natural format în anul 1837, în urma unei alunecări de teren cauzate de ploi torențiale. Se află la poalele muntelui Hășmașul Mare, în apropierea spectaculoaselor Chei ale Bicazului, și face parte din Parcul Național Cheile Bicazului-Hășmaș",
+    features: ["Peisaje montane", "Trasee de drumeție", "Fotografie", "Relaxare"],
+    images: [rosu],
+    location: {
+      address: "Lacul Roșu, DN12C, județul Harghita, cod poștal 535502",
+      coordinates: "46.783° N, 25.783° E",
+      lat: 46.783,
+      lng: 25.783
     },
     color: "from-rose-500/20 to-pink-400/20",
     accent: "bg-gradient-to-r from-rose-500 to-pink-400"
