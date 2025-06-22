@@ -428,25 +428,9 @@ const RoomShowcase = () => {
                     d="M14 5l7 7m0 0l-7 7m7-7H3"
                   ></path>
                 </svg>
-              </motion.span>
-            </motion.div>
+              </motion.span>            </motion.div>
           </Link>
         </motion.div>
-        
-        {/* Contact modal trigger */}
-        <div className="fixed bottom-4 right-4 z-50">
-          <motion.button
-            className="bg-primary text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all flex items-center"
-            onClick={() => setIsModalOpen(true)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M3 14h18M3 18h18"></path>
-            </svg>
-            Contact
-          </motion.button>
-        </div>
         
         {/* Contact modal */}
         <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />

@@ -297,7 +297,7 @@ const ContactPage = () => {
                     id="phone"
                     name="phone"
                     className="form-input w-full rounded-xl p-4 bg-surface-2/50 border border-text-2/10 focus:border-primary focus:ring-1 focus:ring-primary transition-all text-text-1"
-                    placeholder="+40 123 456 789"
+                    placeholder="Număr de telefon"
                   />
                 </div>
 
