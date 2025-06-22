@@ -253,7 +253,7 @@ const GalleryPage = () => {
           style={{ opacity, scale }}
         >
           <Image
-            src="https://images.unsplash.com/photo-1455587734955-081b22074882?w=1200&auto=format&fit=crop&q=80"
+            src={pensiuneaValcan}
             alt="Gallery Hero"
             fill
             className="object-cover animate-ken-burns"

@@ -14,6 +14,7 @@ const Hero = () => {
   
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isClient, setIsClient] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   // Parallax effects
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
@@ -190,17 +191,17 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.6 }}
           >
-            <Link href="/book">
-              <motion.button 
-                className="px-9 py-4 bg-gradient-to-r from-primary to-primary-light text-white rounded-full text-lg font-medium
-                          shadow-lg shadow-primary/20 backdrop-blur-sm transition-all hover:shadow-xl hover:shadow-primary/30"
-                whileHover={{ 
-                  scale: 1.05, 
-                  y: -5,
-                  transition: { type: "spring", stiffness: 400 }
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
+            <motion.button 
+              className="px-9 py-4 bg-gradient-to-r from-primary to-primary-light text-white rounded-full text-lg font-medium
+                        shadow-lg shadow-primary/20 backdrop-blur-sm transition-all hover:shadow-xl hover:shadow-primary/30"
+              whileHover={{ 
+                scale: 1.05, 
+                y: -5,
+                transition: { type: "spring", stiffness: 400 }
+              }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setIsModalOpen(true)}
+            >
                 <span className="flex items-center justify-center gap-2">
                   Rezervă Acum
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -208,7 +209,6 @@ const Hero = () => {
                   </svg>
                 </span>
               </motion.button>
-            </Link>
             
             <Link href="/rooms">
               <motion.button 
@@ -271,6 +271,56 @@ const Hero = () => {
           </div>
         </motion.div>
       </motion.div>
+
+      {/* Contact Modal */}
+      {isModalOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="bg-surface-1 p-6 rounded-lg shadow-lg max-w-sm w-full mx-4 relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-3 right-3 text-text-1 hover:text-primary transition-colors text-xl font-bold"
+            >
+              ×
+            </button>
+            <h3 className="text-xl font-bold text-primary mb-4">Contactează-ne</h3>
+            <div className="space-y-3">
+              <div>
+                <p className="text-text-1 font-medium">Telefon:</p>
+                <a
+                  href="tel:+40123456789"
+                  className="text-secondary hover:text-primary transition-colors block"
+                >
+                  +40 123 456 789
+                </a>
+              </div>
+              <div>
+                <p className="text-text-1 font-medium">Email:</p>
+                <a
+                  href="mailto:contact@pensiunea.ro"
+                  className="text-secondary hover:text-primary transition-colors block"
+                >
+                  contact@pensiunea.ro
+                </a>
+              </div>
+            </div>
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="mt-4 w-full bg-primary text-white py-2 px-4 rounded hover:bg-secondary transition-colors"
+            >
+              Închide
+            </button>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };

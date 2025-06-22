@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -9,6 +9,7 @@ import lacPescuit from '../../../public/lacpescuit.webp';
 import ciubar from '../../../public/ciubar.webp';
 
 const AboutPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const storyRef = useRef(null);
   const { scrollYProgress } = useScroll();
   const { scrollYProgress: storyScrollProgress } = useScroll({
@@ -662,15 +663,14 @@ const AboutPage = () => {
               Rezervați-vă sejurul acum și bucurați-vă de o experiență de neuitat în Toplița
             </p>
             <div className="flex justify-center gap-6">
-              <Link href="/book">
-                <motion.button
-                  className="button-primary text-lg px-8 py-3"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Rezervă Acum
-                </motion.button>
-              </Link>
+              <motion.button
+                className="button-primary text-lg px-8 py-3"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setIsModalOpen(true)}
+              >
+                Rezervă Acum
+              </motion.button>
               <Link href="/contact">
                 <motion.button
                   className="button-outline-white text-lg px-8 py-3"
@@ -684,6 +684,56 @@ const AboutPage = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Contact Modal */}
+      {isModalOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="bg-surface-1 p-6 rounded-lg shadow-lg max-w-sm w-full mx-4 relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-3 right-3 text-text-1 hover:text-primary transition-colors text-xl font-bold"
+            >
+              ×
+            </button>
+            <h3 className="text-xl font-bold text-primary mb-4">Contactează-ne</h3>
+            <div className="space-y-3">
+              <div>
+                <p className="text-text-1 font-medium">Telefon:</p>
+                <a
+                  href="tel:+40123456789"
+                  className="text-secondary hover:text-primary transition-colors block"
+                >
+                  +40 123 456 789
+                </a>
+              </div>
+              <div>
+                <p className="text-text-1 font-medium">Email:</p>
+                <a
+                  href="mailto:contact@pensiunea.ro"
+                  className="text-secondary hover:text-primary transition-colors block"
+                >
+                  contact@pensiunea.ro
+                </a>
+              </div>
+            </div>
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="mt-4 w-full bg-primary text-white py-2 px-4 rounded hover:bg-secondary transition-colors"
+            >
+              Închide
+            </button>
+          </motion.div>
+        </div>
+      )}
     </main>
   );
 };

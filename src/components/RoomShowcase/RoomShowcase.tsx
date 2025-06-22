@@ -52,6 +52,7 @@ const rooms = [
 
 const RoomShowcase = () => {
   const [activeRoom, setActiveRoom] = useState<string>('deluxe-mountain-view');
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: false, margin: "-100px 0px" });
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
@@ -112,6 +113,58 @@ const RoomShowcase = () => {
   const featureVariants = {
     hidden: { opacity: 0, x: -10 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.2 } }
+  };
+
+  // ContactModal component
+  const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+    if (!isOpen) return null;
+
+    return (
+      <motion.div
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+      >
+        <motion.div
+          className="bg-surface-1 rounded-2xl p-6 max-w-md w-full shadow-2xl"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.8, opacity: 0 }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="text-center">
+            <h3 className="text-xl font-bold text-text-primary mb-4">Contactați-ne pentru rezervare</h3>
+            <div className="space-y-3">
+              <div className="flex items-center justify-center space-x-2">
+                <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                </svg>
+                <a href="tel:+40724123456" className="text-text-primary hover:text-primary transition-colors">
+                  +40 724 123 456
+                </a>
+              </div>
+              <div className="flex items-center justify-center space-x-2">
+                <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                </svg>
+                <a href="mailto:contact@pensiunea.ro" className="text-text-primary hover:text-primary transition-colors">
+                  contact@pensiunea.ro
+                </a>
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              className="mt-6 px-6 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover:shadow-lg transition-all"
+            >
+              Închide
+            </button>
+          </div>
+        </motion.div>
+      </motion.div>
+    );
   };
 
   return (
@@ -315,24 +368,23 @@ const RoomShowcase = () => {
                       transition={{ duration: 0.5, delay: 0.5 }}
                       className="mt-auto"
                     >
-                      <Link href={`/rooms/${room.id}`}>
-                        <motion.div
-                          className={`inline-flex items-center px-8 py-3 rounded-full bg-gradient-to-r ${room.accent} 
-                                     text-white font-medium hover:shadow-lg hover:shadow-black/20 group`}
-                          whileHover={{ scale: 1.03 }}
-                          whileTap={{ scale: 0.97 }}
+                      <motion.button
+                        className={`inline-flex items-center px-8 py-3 rounded-full bg-gradient-to-r ${room.accent} 
+                                   text-white font-medium hover:shadow-lg hover:shadow-black/20 group w-full justify-center`}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => setIsModalOpen(true)}
+                      >
+                        <span>Rezervă acum</span>
+                        <svg 
+                          className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
                         >
-                          <span>Rezervă acum</span>
-                          <svg 
-                            className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            viewBox="0 0 24 24"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                          </svg>
-                        </motion.div>
-                      </Link>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                      </motion.button>
                     </motion.div>
                   </div>
                 )}
@@ -380,6 +432,24 @@ const RoomShowcase = () => {
             </motion.div>
           </Link>
         </motion.div>
+        
+        {/* Contact modal trigger */}
+        <div className="fixed bottom-4 right-4 z-50">
+          <motion.button
+            className="bg-primary text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all flex items-center"
+            onClick={() => setIsModalOpen(true)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M3 14h18M3 18h18"></path>
+            </svg>
+            Contact
+          </motion.button>
+        </div>
+        
+        {/* Contact modal */}
+        <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       </div>
     </section>
   );

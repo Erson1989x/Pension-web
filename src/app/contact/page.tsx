@@ -2,7 +2,8 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import hero from '../../../public/header.jpg';
+import hero from '../../../public/aboutus.webp';
+import LeafletMap from '../../components/LeafletMap/LeafletMap';
 
 const ContactPage = () => {
   const formRef = useRef(null);
@@ -186,8 +187,8 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-xl text-text-1 mb-2">Adresă</h3>
-                    <p className="text-text-2">Strada Dealului, Nr. 5</p>
-                    <p className="text-text-2">Toplița, Harghita 535700</p>
+                    <p className="text-text-2">DC192 37, Fundoaia</p>
+                    <p className="text-text-2">Sarmas, Romania</p>
                   </div>
                 </motion.div>
 
@@ -206,7 +207,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-xl text-text-1 mb-2">Telefon</h3>
-                    <p className="text-text-2">+40 123 456 789</p>
+                    <p className="text-text-2">+49 170 312 3905</p>
                     <p className="text-text-2 text-sm mt-1 text-primary">Disponibil zilnic: 08:00 - 20:00</p>
                   </div>
                 </motion.div>
@@ -226,7 +227,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-xl text-text-1 mb-2">Email</h3>
-                    <p className="text-text-2">contact@pensiune-toplita.ro</p>
+                    <p className="text-text-2">pensiuneavilcan@gmail.com</p>
                     <p className="text-text-2 text-sm mt-1 text-cyan-500">Vă răspundem în maxim 24 ore</p>
                   </div>
                 </motion.div>
@@ -337,15 +338,14 @@ const ContactPage = () => {
                 y: mapY
               }}
             >
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21893.035154451706!2d25.34008011562500!3d46.92449997914454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474af5a22632a8c9%3A0xb246178c722809c5!2sTopli%C8%9Ba!5e0!3m2!1sro!2sro!4v1650000000000!5m2!1sro!2sro"
-                width="100%"
+              <LeafletMap
+                lat={46.8791708}
+                lng={25.457565}
+                zoom={14}
                 height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
+                popupText="Pensiunea Sărmaș - Locația noastră"
+                className="rounded-2xl"
+              />
             </motion.div>
           </div>
         </div>
