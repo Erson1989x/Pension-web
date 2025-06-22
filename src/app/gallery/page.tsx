@@ -3,66 +3,160 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { IoClose, IoGrid, IoSquare } from 'react-icons/io5';
+import pensiuneaValcan from '../../../public/webp/valcan.webp'; 
+import pensiuneaValcanTwo from '../../../public/webp/roomtwoo.webp';
+import pensiuneaValcanThree from '../../../public/webp/roomtwo.webp'; 
+import pensiuneaValcanFour from '../../../public/webp/roomthreee.webp';
+import pensiuneaValcanFive from '../../../public/webp/roomthree.webp'; 
+import pensiuneaValcanSix from '../../../public/webp/roomone.webp';
+import pensiuneaValcanSeven from '../../../public/webp/roomon.webp';
+import pensiuneaValcanEight from '../../../public/webp/lacvalc.webp';
+import pensiuneaValcanNine from '../../../public/webp/lac.webp';
+import pensiuneaValcanTen from '../../../public/webp/ciubar.webp';
+import pensiuneaValcanEleven from '../../../public/webp/casaval.webp';
+import pensiuneaValcanTwelve from '../../../public/webp/casava.webp';
+import pensiuneaValcanThirteen from '../../../public/webp/casav.webp';
+import pensiuneaValcanFourteen from '../../../public/webp/casatwo.webp';
+import pensiuneaValcanFifteen from '../../../public/webp/casaciubar.webp';
+import pensiuneaValcanSixteen from '../../../public/webp/casa.webp';
+import pensiuneaValcanSeventeen from '../../../public/webp/bucatariee.webp';
+import pensiuneaValcanEighteen from '../../../public/webp/bucatarie.webp';
+import pensiuneaValcanNineteen from '../../../public/webp/baiepriv.webp';
+import pensiuneaValcanTwenty from '../../../public/webp/baiecomunatwo.webp';
+import pensiuneaValcanTwentyOne from '../../../public/webp/baiecomuna.webp';
 
 // Gallery images with actual URLs
 const galleryImages = [
   {
     id: 1,
-    src: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&auto=format&fit=crop&q=60',
-    alt: 'Cameră Dublă Deluxe',
+    src: pensiuneaValcan.src,
+    alt: 'Pensiunea Valcan - Vedere Generală', 
     category: 'rooms',
     featured: true
   },
   {
     id: 2,
-    src: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&auto=format&fit=crop&q=60',
-    alt: 'Cameră Twin Premium',
+    src: pensiuneaValcanTwo.src,
+    alt: "Camera Delux",
     category: 'rooms'
   },
   {
     id: 3,
-    src: 'https://images.unsplash.com/photo-1591088398332-8a7791972843?w=800&auto=format&fit=crop&q=60',
-    alt: 'Apartament Executive',
-    category: 'rooms'
+    src: pensiuneaValcanThree.src,
+    alt: "Camera Delux",
+    category: 'rooms',
   },
   {
     id: 4,
-    src: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=60',
-    alt: 'Restaurant Principal',
-    category: 'restaurant',
+    src: pensiuneaValcanFour.src,
+    alt: 'Camera Delux cu Vedere la Lac',
+    category: 'rooms',
     featured: true
   },
   {
     id: 5,
-    src: 'https://images.unsplash.com/photo-1578474846511-04ba529f0b88?w=800&auto=format&fit=crop&q=60',
-    alt: 'Terasă Restaurant',
-    category: 'restaurant'
+    src: pensiuneaValcanFive.src,
+    alt: 'Camera Standard',
+    category: 'rooms'
   },
   {
     id: 6,
-    src: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&auto=format&fit=crop&q=60',
-    alt: 'Piscină Infinity',
-    category: 'facilities',
+    src: pensiuneaValcanSix.src,
+    alt: 'Camera 2 persoane',
+    category: 'rooms',
     featured: true
   },
   {
     id: 7,
-    src: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=60',
-    alt: 'Sală de Fitness',
-    category: 'facilities'
+    src: pensiuneaValcanSeven.src,
+    alt: 'Camera 2 persoane cu Vedere la Lac',
+    category: 'rooms'
   },
   {
     id: 8,
-    src: 'https://images.unsplash.com/photo-1610641818989-c2051b5e2cfd?w=800&auto=format&fit=crop&q=60',
-    alt: 'Vedere Panoramică',
+    src: pensiuneaValcanEight.src,
+    alt: 'Lacul Valcan - Vedere Generală',
     category: 'exterior',
     featured: true
   },
   {
     id: 9,
-    src: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&auto=format&fit=crop&q=60',
-    alt: 'Grădină și Terasă',
+    src: pensiuneaValcanNine.src,
+    alt: 'Lacul Valcan',
     category: 'exterior'
+  },
+  {
+    id: 10,
+    src: pensiuneaValcanTen.src,
+    alt: 'Ciubar',
+    category: 'facilities',
+    featured: true
+  },
+  {
+    id: 11,
+    src: pensiuneaValcanEleven.src,
+    alt: 'Casa Valcan',
+    category: 'exterior'
+  },
+  {
+    id: 12,
+    src: pensiuneaValcanTwelve.src,
+    alt: 'Casa Valcan',
+    category: 'exterior',
+  },
+  {
+    id: 13,
+    src: pensiuneaValcanThirteen.src,
+    alt: 'Casa Valcan',
+    category: 'exterior',
+  },
+  {
+    id: 14,
+    src: pensiuneaValcanFourteen.src,
+    alt: 'Casa Valcan',
+    category: 'exterior'
+  },
+  {
+    id: 15,
+    src: pensiuneaValcanFifteen.src,
+    alt: 'Ciubar Casa Valcan',
+    category: 'facilities'
+  },
+  {
+    id: 16,
+    src: pensiuneaValcanSixteen.src,
+    alt: 'Casa Valcan',
+    category: 'exterior'
+  },  
+  {
+    id: 17,
+    src: pensiuneaValcanSeventeen.src,
+    alt: 'Bucatarie Casa Valcan',
+    category: 'rooms',
+  },
+  {
+    id: 18,
+    src: pensiuneaValcanEighteen.src,
+    alt: 'Bucatarie Casa Valcan',
+    category: 'rooms'
+  },
+  {
+    id: 19,
+    src: pensiuneaValcanNineteen.src,
+    alt: 'Baie Privata Casa Valcan',
+    category: 'rooms',
+  },
+  {
+    id: 20,
+    src: pensiuneaValcanTwenty.src,
+    alt: 'Baie Comună Casa Valcan',
+    category: 'rooms'
+  },
+  {
+    id: 21,
+    src: pensiuneaValcanTwentyOne.src,
+    alt: 'Baie Comună Casa Valcan',
+    category: 'exterior',
   }
 ];
 
@@ -71,7 +165,6 @@ const categories = [
   { id: 'all', name: 'Toate', color: 'from-primary to-secondary' },
   { id: 'rooms', name: 'Camere', color: 'from-cyan-500 to-blue-600' },
   { id: 'exterior', name: 'Exterior', color: 'from-emerald-500 to-teal-600' },
-  { id: 'restaurant', name: 'Restaurant', color: 'from-amber-500 to-orange-600' },
   { id: 'facilities', name: 'Facilități', color: 'from-purple-500 to-pink-600' }
 ];
 
