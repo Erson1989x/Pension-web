@@ -321,7 +321,7 @@ export default function RoomsPage() {
                             transition={{ duration: 0.5 }}
                           >
                             <div className={`px-4 py-2 rounded-full ${room.accent} text-white`}>
-                              <p className="text-3xl font-bold">{room.price} €</p>
+                              <p className="text-3xl font-bold">{room.price} RON</p>
                             </div>
                             <p className="text-sm text-gray-500 mt-1">per noapte</p>
                           </motion.div>

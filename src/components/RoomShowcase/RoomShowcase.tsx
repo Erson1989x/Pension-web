@@ -187,7 +187,7 @@ const RoomShowcase = () => {
                     </h3>
                     <div className="flex items-center">
                       <span className={`text-xl font-bold ${room.id === activeRoom ? 'text-primary' : 'text-text-1'}`}>
-                        €{room.price}
+                        {room.price} RON
                       </span>
                       <span className="ml-1 text-xs text-text-2">/noapte</span>
                     </div>
