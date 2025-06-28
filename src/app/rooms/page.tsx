@@ -47,11 +47,7 @@ export default function RoomsPage() {
       {/* Booking Modal with Enhanced Design */}
       <AnimatePresence>
         {selectedRoom && (
-          <BookingModal
-            isOpen={!!selectedRoom}
-            onClose={() => setSelectedRoom(null)}
-            roomName={rooms.find(r => r.id === selectedRoom)?.name}
-          />
+          <ContactModal isOpen={!!selectedRoom} onClose={() => setSelectedRoom(null)} />
         )}
       </AnimatePresence>
       {/* Contact Modal */}
