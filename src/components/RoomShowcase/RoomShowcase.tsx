@@ -142,7 +142,7 @@ const RoomShowcase = () => {
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                 </svg>
                 <a href="tel:+40724123456" className="text-text-primary hover:text-primary transition-colors">
-                  +40 724 123 456
+                  +49 170 312 3905
                 </a>
               </div>
               <div className="flex items-center justify-center space-x-2">
@@ -151,7 +151,7 @@ const RoomShowcase = () => {
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                 </svg>
                 <a href="mailto:contact@pensiunea.ro" className="text-text-primary hover:text-primary transition-colors">
-                  contact@pensiunea.ro
+                  pensiuneavilcan@gmail.com
                 </a>
               </div>
             </div>
@@ -294,34 +294,31 @@ const RoomShowcase = () => {
             transition={{ duration: 0.8 }}
           >
             {rooms.map((room) => (
-              <motion.div
-                key={room.id}
-                className="absolute inset-0 rounded-2xl overflow-hidden"
-                initial={{ opacity: 0 }}
-                animate={{ 
-                  opacity: room.id === activeRoom ? 1 : 0,
-                  transition: { duration: 0.5 }
-                }}
-              >
-                {/* Parallax image container */}
-                <motion.div 
-                  className="absolute inset-0 scale-110" 
-                  style={{ y: room.id === activeRoom ? y : 0 }}
+              room.id === activeRoom && (
+                <motion.div
+                  key={room.id}
+                  className="absolute inset-0 rounded-2xl overflow-hidden"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
                 >
-                  {/* Image */}
-                  <Image
-                    src={room.image}
-                    alt={room.name}
-                    fill
-                    className="object-cover"
-                    priority={room.id === 'deluxe-mountain-view'}
-                  />
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-                </motion.div>
-                
-                {/* Content */}
-                {room.id === activeRoom && (
+                  {/* Parallax image container */}
+                  <motion.div 
+                    className="absolute inset-0 scale-110" 
+                    style={{ y }}
+                  >
+                    {/* Image */}
+                    <Image
+                      src={room.image}
+                      alt={room.name}
+                      fill
+                      className="object-cover"
+                      priority={room.id === 'deluxe-mountain-view'}
+                    />
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                  </motion.div>
+                  {/* Content */}
                   <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">
                     <motion.h3
                       className="text-3xl font-bold mb-4"
@@ -331,7 +328,6 @@ const RoomShowcase = () => {
                     >
                       {room.name}
                     </motion.h3>
-                    
                     <motion.p
                       className="text-white/80 mb-6 max-w-md"
                       initial={{ opacity: 0, y: 20 }}
@@ -340,7 +336,6 @@ const RoomShowcase = () => {
                     >
                       {room.description}
                     </motion.p>
-                    
                     <motion.div 
                       className="grid grid-cols-2 gap-3 mb-6"
                       initial={{ opacity: 0 }}
@@ -361,7 +356,6 @@ const RoomShowcase = () => {
                         </motion.div>
                       ))}
                     </motion.div>
-                    
                     <motion.div 
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -387,8 +381,8 @@ const RoomShowcase = () => {
                       </motion.button>
                     </motion.div>
                   </div>
-                )}
-              </motion.div>
+                </motion.div>
+              )
             ))}
           </motion.div>
         </div>

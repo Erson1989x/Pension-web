@@ -1,7 +1,7 @@
 import camera from '../../../public/camera.webp';
-import roomone from '../../../public/rooms/roomone/roomone.webp';
-import roomtwo from '../../../public/rooms/roomtwo/roomtwo.webp';
-import roomthree from '../../../public/rooms/roomthree/roomthree.webp';
+import roomone from '../../../../public/rooms/roomone/roomone.webp';
+import roomtwo from '../../../../public/rooms/roomtwo/roomtwo.webp';
+import roomthree from '../../../../public/rooms/roomthree/roomthree.webp';
 
 export const rooms = [
   {

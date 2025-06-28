@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion, useTransform, useScroll } from 'framer-motion';
-import aboutUS from '../../../public/aboutus.webp';
+import aboutUS from '../../../../../public/aboutus.webp';
 
 const HeroSection = () => {
   const { scrollYProgress } = useScroll();

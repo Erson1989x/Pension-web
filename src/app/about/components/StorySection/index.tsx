@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import familia from '../../../../../public/familie.jpg';
 
 const StorySection = () => {
   const storyRef = useRef(null);
@@ -140,8 +141,8 @@ const StorySection = () => {
                 style={{ y: storyImageY }}
               >
                 <Image
-                  src="/images/about/story.jpg"
-                  alt="Pensiunea Vilcan"
+                  src={familia}
+                  alt="Familia Vilcan"
                   fill
                   className="object-cover"
                 />
@@ -182,8 +183,8 @@ const StorySection = () => {
               transition={{ duration: 0.6, delay: 0.9 }}
             >
               <div className="px-4 py-3 bg-white/10 backdrop-blur-md rounded-lg text-white">
-                <p className="text-sm font-medium">Pensiunea Vilcan</p>
-                <p className="text-xs opacity-80">Toplița, Harghita</p>
+                <p className="text-sm font-medium">Familia Vilcan</p>
+                <p className="text-xs opacity-80">Sarmas, Harghita</p>
               </div>
             </motion.div>
             

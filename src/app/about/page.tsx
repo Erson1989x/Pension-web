@@ -32,9 +32,9 @@ export default function AboutPage() {
       <main>
         <HeroSection />
         <StorySection />
-        <TeamSection />
-        <TestimonialsSection />
-        <FAQSection />
+        {/* <TeamSection /> Uncomment when team section is ready */}
+        {/*<TestimonialsSection />*/}
+        {/*<FAQSection />*/}
       </main>
     </PageTransition>
   );
