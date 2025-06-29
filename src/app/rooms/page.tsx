@@ -7,35 +7,25 @@ import RoomsGrid from './components/RoomsGrid';
 import BookingModal from './components/BookingModal';
 import ContactModal from './components/ContactModal';
 import { rooms } from './data/rooms';
+import { useFocusePosition } from '@/hooks/useFocusePosition';
 
 export default function RoomsPage() {
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const mousePosition = useFocusePosition();
   const parallaxRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: parallaxRef,
     offset: ["start start", "end start"]
   });
   // Mouse position parallax effect
-  const handleMouseMove = (e: any) => {
-    setMousePosition({
-      x: e.clientX,
-      y: e.clientY
-    });
-  };
-  React.useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
+
   // For smooth parallax effect
   const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
   const springY = useSpring(y, { stiffness: 50, damping: 30 });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white overflow-hidden" onMouseMove={handleMouseMove}>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white overflow-hidden">
       {/* Hero Section with Parallax Effect */}
       <RoomsHeroSection parallaxRef={parallaxRef} springY={springY} />
       {/* Rooms Grid with 3D Effects and Modernized Design */}

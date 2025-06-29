@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import header from '../../../public/header.webp';
+import { useMousePosition } from '@/hooks/useMousePosition';
+
 
 const Hero = () => {
   const ref = useRef(null);
@@ -12,7 +14,7 @@ const Hero = () => {
     offset: ["start start", "end start"]
   });
   
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const mousePosition = useMousePosition();
   const [isClient, setIsClient] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
@@ -26,21 +28,6 @@ const Hero = () => {
   // Mouse parallax effect for decorative elements
   useEffect(() => {
     setIsClient(true);
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const windowWidth = window.innerWidth;
-      const windowHeight = window.innerHeight;
-      
-      // Calculate mouse position as percentage of window
-      const x = (clientX / windowWidth) - 0.5;
-      const y = (clientY / windowHeight) - 0.5;
-      
-      setMousePosition({ x, y });
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
   
   // Decorative elements for visual interest

@@ -11,6 +11,7 @@ import HeroSection from "./components/HeroSection";
 import CursorGlow from "./components/CursorGlow";
 import {activities} from "./data/activities";
 import FloatingElement from "./components/FloatingElement";
+import { useFocusePosition } from "@/hooks/useFocusePosition";
 
 
 // Category filters with colors
@@ -98,8 +99,7 @@ const ActivityMap = ({ location, color, accent }: { location: Location; color: s
 export default function Activities() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedActivity, setSelectedActivity] = useState<IActivity | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
+  const mousePosition = useFocusePosition();
   const parallaxRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: parallaxRef,
@@ -111,24 +111,14 @@ export default function Activities() {
     ? activities
     : activities.filter(activity => activity.category === selectedCategory);
 
-  // Handle mouse movement for cursor glow effect
-  const handleMouseMove = (e: any) => {
-    setMousePosition({ x: e.clientX, y: e.clientY });
-  };
 
-  useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
 
   // For smooth parallax effect
   const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
   const springY = useSpring(y, { stiffness: 50, damping: 30 });
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white overflow-hidden" onMouseMove={handleMouseMove}>
+    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white overflow-hidden">
       {/* Hero Section with Parallax */}
       <HeroSection image={aventuri} springY={springY} />
 
