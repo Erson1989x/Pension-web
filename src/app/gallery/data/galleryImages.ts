@@ -24,7 +24,7 @@ export const galleryImages = [
   {
     id: 1,
     src: pensiuneaValcan.src,
-    alt: 'Pensiunea Valcan - Vedere Generală', 
+    alt: 'Pensiunea Valcan', 
     category: 'rooms',
     featured: true
   },
@@ -43,7 +43,7 @@ export const galleryImages = [
   {
     id: 4,
     src: pensiuneaValcanFour.src,
-    alt: 'Camera Delux cu Vedere la Lac',
+    alt: 'Camera Delux',
     category: 'rooms',
     featured: true
   },
@@ -63,13 +63,13 @@ export const galleryImages = [
   {
     id: 7,
     src: pensiuneaValcanSeven.src,
-    alt: 'Camera 2 persoane cu Vedere la Lac',
+    alt: 'Camera 2 persoane',
     category: 'rooms'
   },
   {
     id: 8,
     src: pensiuneaValcanEight.src,
-    alt: 'Lacul Valcan - Vedere Generală',
+    alt: 'Lacul Valcan',
     category: 'exterior',
     featured: true
   },

@@ -26,13 +26,13 @@ export default function RootLayout({
       <head>
         <title>Pensiunea Vilcan - Cazare de Lux în Toplița</title>
         <meta name="description" content="Descoperiți confortul și luxul într-o locație pitorească din Sarmaş, aproape de Toplița. Camere elegante, facilități moderne și experiențe memorabile." />
-        <meta name="keywords" content="pensiune sarmas, pensiune toplita, pensiune vilcan, pensiune harghita, pensiune zona turistica, cazare harghita, cazare toplita, cazare sarmas, cazare vilcan, cazare munte, pensiune familie, vacanta harghita, turism harghita, cazare romania, pensiune romania, pensiune munte, pensiune relaxare, pensiune natura, pensiune Transilvania, pensiune cu ciubar, pensiune cu spa, pensiune cu restaurant, pensiune cu activitati, pensiune cu priveliste, pensiune cu pescuit, pensiune cu echitatie, pensiune cu drumetii" />
+        <meta name="keywords" content="pensiune sarmas, pensiune toplita, pensiune vilcan, pensiune vilcan camping, pensiune vilcan campingplatz, pensiune harghita, pensiune zona turistica, cazare harghita, cazare toplita, cazare sarmas, cazare vilcan, cazare munte, pensiune familie, vacanta harghita, turism harghita, cazare romania, pensiune romania, pensiune munte, pensiune relaxare, pensiune natura, pensiune Transilvania, pensiune cu ciubar, pensiune cu spa, pensiune cu restaurant, pensiune cu activitati, pensiune cu priveliste, pensiune cu pescuit, pensiune cu echitatie, pensiune cu drumetii" />
         <meta property="og:title" content="Pensiunea Vilcan - Cazare de Lux în Sarmaş" />
         <meta property="og:description" content="Cazare premium în Harghita, aproape de Toplița, cu facilități moderne, activități turistice și peisaje deosebite." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="ro_RO" />
         <meta name="robots" content="index, follow" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.ico" />
       </head>
       <body className="overflow-x-hidden">
         <AnimatePresence mode="wait">

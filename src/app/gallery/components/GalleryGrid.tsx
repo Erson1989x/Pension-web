@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface GalleryImage {
   id: number;
@@ -83,12 +84,12 @@ const GalleryGrid = ({ filteredImages, viewMode, isLoading, setSelectedImage, ca
                     : ''
               }
             >
-              <motion.div 
-                className="image-container group h-full relative"
-                whileHover={{ y: -8, transition: { type: 'spring', stiffness: 200 } }}
-                onClick={() => setSelectedImage(image.id)}
-              >
-                <div className="relative overflow-hidden rounded-2xl shadow-sm h-full perspective transform-gpu">
+              <Link href={`/gallery/${image.id}`}>
+                <motion.div 
+                  className="image-container group h-full relative"
+                  whileHover={{ y: -8, transition: { type: 'spring', stiffness: 200 } }}
+                >
+                  <div className="relative overflow-hidden rounded-2xl shadow-sm h-full perspective transform-gpu">
                   <div className="overflow-hidden rounded-2xl">
                     <motion.div
                       className="relative w-full h-full transform-gpu"
@@ -155,7 +156,8 @@ const GalleryGrid = ({ filteredImages, viewMode, isLoading, setSelectedImage, ca
                   className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-primary/20 to-secondary/20 blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500 -z-10"
                   layoutId={`image-glow-${image.id}`}
                 ></motion.div>
-              </motion.div>
+                </motion.div>
+              </Link>
             </motion.div>
           ))}
         </motion.div>

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import LeafletMap from "../../../components/LeafletMap/LeafletMap";
+import LeafletMap from "../../../components/LeafletMap/ClientLeafletMap";
 
 interface Location {
   address: string;

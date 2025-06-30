@@ -1,6 +1,9 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import FeatureBadge from './FeatureBadge';
 
 interface Room {
@@ -26,8 +29,10 @@ interface RoomCardProps {
 }
 
 const RoomCard: React.FC<RoomCardProps> = ({ room, index, mousePosition, onBook }) => {
-  const offsetX = ((mousePosition.x / window.innerWidth) - 0.5) * 20;
-  const offsetY = ((mousePosition.y / window.innerHeight) - 0.5) * 10;
+  // Use mousePosition directly, which comes from the useMousePosition hook
+  // that already safely handles window references
+  const offsetX = mousePosition.x * 20;
+  const offsetY = mousePosition.y * 10;
 
   return (
     <motion.div
@@ -47,18 +52,21 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, index, mousePosition, onBook 
         <div className={`flex flex-col lg:flex-row bg-white/80 backdrop-blur-sm rounded-3xl overflow-hidden shadow-2xl ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
           {/* Room Images with Parallax Effect */}
           <div className="relative lg:w-1/2 h-[400px] lg:h-auto group overflow-hidden">
-            <motion.div
-              style={{ x: offsetX, y: offsetY, scale: 1.1 }}
-              transition={{ type: "spring", stiffness: 50, damping: 30 }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={room.images[0]}
-                alt={room.name}
-                fill
-                className="object-cover"
-              />
-            </motion.div>
+            <Link href={`/rooms/${room.id}`} className="absolute inset-0 z-20">
+              <span className="sr-only">View {room.name} details</span>
+            </Link>
+            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300 z-10"></div>
+            <div className="absolute inset-0 overflow-hidden">
+              {room.images && room.images.length > 0 && (
+                <Image
+                  src={room.images[0]}
+                  alt={room.name}
+                  fill
+                  className="object-cover transform group-hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              )}
+            </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             {/* Floating room details badge on hover */}
             <motion.div
@@ -74,21 +82,23 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, index, mousePosition, onBook 
           {/* Room Details with Modern UI */}
           <div className="lg:w-1/2 p-8 lg:p-12 flex flex-col">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-              <motion.h2
-                className="text-3xl lg:text-4xl font-bold text-gray-900 relative inline-block"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                {room.name}
-                <motion.span
-                  className={`absolute bottom-0 left-0 h-1 ${room.accent} rounded-full`}
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                />
-              </motion.h2>
+              <Link href={`/rooms/${room.id}`} className="hover:opacity-80 transition-opacity">
+                <motion.h2
+                  className="text-3xl lg:text-4xl font-bold text-gray-900 relative inline-block"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {room.name}
+                  <motion.span
+                    className={`absolute bottom-0 left-0 h-1 ${room.accent} rounded-full`}
+                    initial={{ width: 0 }}
+                    whileInView={{ width: "100%" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                  />
+                </motion.h2>
+              </Link>
               <motion.div
                 className="text-right mt-2 md:mt-0"
                 initial={{ opacity: 0, x: 20 }}

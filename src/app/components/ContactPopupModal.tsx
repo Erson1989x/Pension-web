@@ -64,15 +64,15 @@ const ContactPopupModal: React.FC<ContactPopupModalProps> = ({ show, onClose }) 
             </div>
             {/* Email */}
             <div className="bg-surface-2 rounded-xl p-4 border border-surface-3">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center mb-2 sm:mb-0">
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <div>
+                <div className="w-full">
                   <p className="text-sm text-text-2">Email</p>
-                  <a href="mailto:pensiuneavilcan@gmail.com" className="text-lg font-semibold text-primary hover:text-secondary transition-colors">
+                  <a href="mailto:pensiuneavilcan@gmail.com" className="text-lg font-semibold text-primary hover:text-secondary transition-colors break-words">
                     pensiuneavilcan@gmail.com
                   </a>
                 </div>

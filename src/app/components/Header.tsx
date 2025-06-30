@@ -107,14 +107,14 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen, setShowConta
                   setShowContactPopup(true);
                   setIsMenuOpen(false);
                 }}
-                className="button-primary text-center w-full cursor-pointer"
+                className="button-primary text-center w-full cursor-pointer mb-6"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Rezervă Acum
               </motion.button>
             </div>
-            <div className="absolute bottom-8 left-6 right-6">
+            <div className="mt-16 left-6 right-6">
               <div className="flex justify-center space-x-4 mb-6">
                 <SocialIcon href="#" icon="facebook" />
                 <SocialIcon href="#" icon="instagram" />

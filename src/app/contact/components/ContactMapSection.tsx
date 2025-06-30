@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import LeafletMap from '../../../components/LeafletMap/LeafletMap';
+import LeafletMap from '../../../components/LeafletMap/ClientLeafletMap';
 
 const ContactMapSection = ({ mapY, mapRef }: { mapY: any, mapRef: any }) => (
   <section className="py-16 bg-gray-50">

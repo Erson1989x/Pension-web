@@ -67,7 +67,7 @@ const Hero = () => {
       >
         <Image
           src={header}
-          alt="Mountain Pension View"
+          alt="Pensiune Vilcan"
           fill
           priority
           className="object-cover object-center transform scale-110"
@@ -286,16 +286,16 @@ const Hero = () => {
                   href="tel:+40123456789"
                   className="text-secondary hover:text-primary transition-colors block"
                 >
-                  +40 123 456 789
+                  +49 170 312 3905
                 </a>
               </div>
               <div>
                 <p className="text-text-1 font-medium">Email:</p>
                 <a
-                  href="mailto:contact@pensiunea.ro"
+                  href="mailto:pensiuneavilcan@gmail.com"
                   className="text-secondary hover:text-primary transition-colors block"
                 >
-                  contact@pensiunea.ro
+                 pensiuneavilcan@gmail.com 
                 </a>
               </div>
             </div>

@@ -80,8 +80,11 @@ const GalleryPage = () => {
       }
     };
     
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+    return undefined;
   }, [selectedImage, currentImageIndex, filteredImages, navigateImage]);
 
   return (

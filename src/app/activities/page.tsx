@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import LeafletMap from "../../components/LeafletMap/LeafletMap";
+import LeafletMap from "../../components/LeafletMap/ClientLeafletMap";
 import aventuri from "../../../public/aventuri.jpg";
 import ActivityGrid from "./components/ActivityGrid";
 import CategoryFilters from "./components/CategoryFilters";
