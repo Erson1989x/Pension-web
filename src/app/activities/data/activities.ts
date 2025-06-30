@@ -52,7 +52,7 @@ export const activities = [
   },
   {
     id: "cycling",
-    name: "Bicigleta, ATV si E-Bike",
+    name: "Bicicleta, ATV si E-Bike",
     category: "outdoor",
     distance: "15 km",
     duration: "Flexibil",
@@ -71,7 +71,7 @@ export const activities = [
   },
   {
     id: "wellness",
-    name: "Thermal Spa",
+    name: "Termal Spa",
     category: "wellness",
     distance: "15 km",
     duration: "Flexibil",

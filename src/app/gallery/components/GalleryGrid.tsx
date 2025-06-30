@@ -84,7 +84,10 @@ const GalleryGrid = ({ filteredImages, viewMode, isLoading, setSelectedImage, ca
                     : ''
               }
             >
-              <Link href={`/gallery/${image.id}`}>
+              <div 
+                onClick={() => setSelectedImage(image.id)}
+                className="cursor-pointer"
+              >
                 <motion.div 
                   className="image-container group h-full relative"
                   whileHover={{ y: -8, transition: { type: 'spring', stiffness: 200 } }}
@@ -157,7 +160,7 @@ const GalleryGrid = ({ filteredImages, viewMode, isLoading, setSelectedImage, ca
                   layoutId={`image-glow-${image.id}`}
                 ></motion.div>
                 </motion.div>
-              </Link>
+              </div>
             </motion.div>
           ))}
         </motion.div>

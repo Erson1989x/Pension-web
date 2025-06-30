@@ -10,6 +10,10 @@ const nextConfig = {
   output: 'export',
   // This disables SSR entirely and builds a fully static site
   // Note: This means all pages will be pre-rendered at build time
+  // Use trailing slashes for compatibility with standard web servers
+  trailingSlash: true,
+  // Generate HTML files for each route (important for static hosting)
+  // This ensures routes like /rooms/ have an index.html file
   images: {
     remotePatterns: [
       {

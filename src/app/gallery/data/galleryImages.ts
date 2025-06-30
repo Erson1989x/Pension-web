@@ -18,7 +18,6 @@ import pensiuneaValcanSeventeen from '../../../../public/webp/bucatariee.webp';
 import pensiuneaValcanEighteen from '../../../../public/webp/bucatarie.webp';
 import pensiuneaValcanNineteen from '../../../../public/webp/baiepriv.webp';
 import pensiuneaValcanTwenty from '../../../../public/webp/baiecomunatwo.webp';
-import pensiuneaValcanTwentyOne from '../../../../public/webp/baiecomuna.webp';
 
 export const galleryImages = [
   {
@@ -121,12 +120,6 @@ export const galleryImages = [
     src: pensiuneaValcanSixteen.src,
     alt: 'Casa Valcan',
     category: 'exterior'
-  },  
-  {
-    id: 17,
-    src: pensiuneaValcanSeventeen.src,
-    alt: 'Bucatarie Casa Valcan',
-    category: 'rooms',
   },
   {
     id: 18,
@@ -146,10 +139,4 @@ export const galleryImages = [
     alt: 'Baie Comună Casa Valcan',
     category: 'rooms'
   },
-  {
-    id: 21,
-    src: pensiuneaValcanTwentyOne.src,
-    alt: 'Baie Comună Casa Valcan',
-    category: 'exterior',
-  }
 ];

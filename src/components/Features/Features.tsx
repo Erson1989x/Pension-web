@@ -13,7 +13,7 @@ const featuresData = [
   {
     icon: <FaWifi />,
     title: "High-Speed WiFi",
-    description: "Rămâneți conectați cu internet de mare viteză gratuit pe întreaga proprietate",
+    description: "Rămâneți conectați la internet de mare viteză gratuit pe întreaga proprietate",
     bgColor: "from-emerald-500/20 to-emerald-600/20",
     iconColor: "text-emerald-600",
     accent: "#10b981",
@@ -58,7 +58,7 @@ const featuresData = [
   {
     icon: <FaCalendarAlt />,
     title: "Evenimente Speciale",
-    description: "Organizarea de evenimente speciale, cum ar fi nunți, boteze sau petreceri în cadrul natural spectaculos",
+    description: "Organizarea de evenimente speciale, cum ar fi nunți, botezuri sau petreceri în cadrul natural spectaculos",
     bgColor: "from-purple-500/20 to-purple-600/20",
     iconColor: "text-purple-600",
     accent: "#9333ea",
@@ -154,7 +154,7 @@ const Features = () => {
             variants={titleVariants}
             transition={{ delay: 0.3 }}
           >
-            Descoperiți atențiile deosebite și serviciile premium care vă fac 
+            Descoperiți serviciile premium care vă fac 
             șederea cu adevărat de neuitat
           </motion.p>
         </motion.div>

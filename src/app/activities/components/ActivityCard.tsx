@@ -45,11 +45,14 @@ const ActivityCard = ({ activity, onClick, categories }: ActivityCardProps) => (
         </div>
       </div>
       <div className="p-6 space-y-4">
-        <Link href={`/activities/${activity.id}`} className="block hover:opacity-80 transition-opacity">
+        <div 
+          className="block hover:opacity-80 transition-opacity cursor-pointer"
+          onClick={onClick}
+        >
           <h3 className="text-2xl font-bold text-gray-900 group-hover:text-gray-700 transition-colors">
             {activity.name}
           </h3>
-        </Link>
+        </div>
         <p className="text-gray-700 line-clamp-2 leading-relaxed">
           {activity.description}
         </p>
@@ -68,19 +71,18 @@ const ActivityCard = ({ activity, onClick, categories }: ActivityCardProps) => (
             <span>{activity.duration}</span>
           </div>
         </div>
-        <Link href={`/activities/${activity.id}`} className="block w-full">
-          <motion.button
-            className={`${activity.accent} text-white px-6 py-2 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 w-full`}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={(e) => {
-              e.stopPropagation();
-              onClick();
-            }}
-          >
-            Vezi Detalii
-          </motion.button>
-        </Link>
+        <motion.button
+          className={`${activity.accent} text-white px-6 py-2 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 w-full`}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onClick();
+          }}
+        >
+          Vezi Detalii
+        </motion.button>
       </div>
     </div>
   </motion.div>
